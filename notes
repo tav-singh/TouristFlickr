@@ -1,0 +1,4 @@
+Retrieve image directly
+https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
+
+https://www.flickr.com/services/api/misc.urls.html

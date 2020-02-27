@@ -15,7 +15,7 @@ Split work into 3 different parts.
 
 Model for learning user preference (Alice)
 Divide the photos into groups and calculate the popularity score of each photo for each group. 
-The popularity score is calculated based on the number of comments and views.
+The popularity score is calculated based on the number of comments and views, which can be later changed according to the user preferences.
 
 Finding new datasets to link and analyzing/preprocessing data (Gamma & Tavneet)
   

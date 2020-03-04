@@ -17,7 +17,7 @@ Split work into 3 different parts.
 
 1. Model for learning user preference (Leyu)
 
-...Divide the photos into groups and calculate the popularity score of each photo for each group. 
+Divide the photos into groups and calculate the popularity score of each photo for each group. 
 The popularity score is calculated based on the number of comments and views, which can be later changed according to the user preferences.
 Not sure if we need to calculate a new popularity score for places that have multiple photos that belong to multiple groups.
 
@@ -35,3 +35,8 @@ is the best approach yet to retrieve images relevant to us.
 3. Design and Visualiztion (Jiachen & Chenghan)
 
 ### Week 4
+
+1. Combine external datasets and convert to csv. (Gamma)
+2. Created base visualization, added map, some control uis and landing page (Gamma)
+3. Created backend (Tavneet)
+4. Graphs and charts from cost of living and safety index (Jiacheng)

@@ -3,10 +3,11 @@
 ## Progress Report
 
 ### Week 1
+Presented individual assignments, showed interested in working with Flickr or Reddit datasets. Devanshu suggested projects for both as we were confused about what approach to take and the expectations regarding the project. 
 
 ### Week 2
 
-Decided to work on visual analytics on the flickr dataset
+Decided to work on visual analytics on the flickr dataset as a tourism destination recommender where images from the dataset could be shown to the user of possible travel destinations. 
 
 ### Week 3
 
@@ -36,7 +37,7 @@ data on what we can possibly use to calculate crime index/safety level. The data
 
 1. Combine external datasets and convert to csv. (Gamma)
 2. Created base visualization, added map, some control uis and landing page (Gamma)
-3. Created backend (Tavneet)
+3. Finished the backend desgin. Started the work on backend in Flask. (Tavneet)
 4. Graphs and charts from cost of living and safety index (Jiacheng)
 5. Design the front end and make the intermediate report(Leyu)
 6. Design graphs and horizontally scrolling images display(Chenghan)

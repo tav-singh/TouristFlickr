@@ -39,4 +39,4 @@ data on what we can possibly use to calculate crime index/safety level. The data
 3. Created backend (Tavneet)
 4. Graphs and charts from cost of living and safety index (Jiacheng)
 5. Design the front end and make the intermediate report(Leyu)
-6. Graphs and horizontally scrolling images(Chenghan)
+6. Design graphs and horizontally scrolling images display(Chenghan)

@@ -1,0 +1,282 @@
+/* Google Fonts */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+body {
+    margin: 0;
+    background-color: #2A2C39;
+    font-family: 'Open Sans', 'sans-serif';
+    font-weight: 200;
+    font-size: 17px;
+}
+
+#map-holder {
+    width: 100vw;
+    height: 100vh;
+}
+
+svg rect {
+    fill: #2A2C39;
+    /* map background colour */
+}
+
+.country {
+    fill: #d0d0d0;
+    /* country colour */
+    stroke: #2A2C39;
+    /* country border colour */
+    stroke-width: 1;
+    /* country border width */
+}
+
+.country-on {
+    fill: #4B5358;
+    /* highlight colour for selected country */
+}
+
+.countryLabel {
+    display: none;
+    /* hide all country labels by default */
+}
+
+.countryName {
+    fill: #FFFAFF;
+    /* country label text colour */
+}
+
+.countryLabelBg {
+    fill: #30BCED00;
+    /* country label background colour */
+}
+
+.tagContainer {
+    position: absolute;
+    left: 50px;
+    top: 10%;
+}
+
+.tagContainer > div {
+    /* background-color: white; */
+    padding: 5px 10px;
+    margin-bottom:15px;
+    cursor: pointer;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+}
+
+.tagContainer > div > p {
+    color: white;
+
+}
+
+.turq {
+    background-color: #1abc9c;
+}
+
+.eme {
+    background-color: #d35400;
+}
+.ptr {
+    background-color: #3498db;
+}
+.sfa {
+    background-color: #f1c40f;
+}
+.car {
+    background-color: #e67e22;
+}
+.brp {
+    background-color: #2980b9;
+}
+
+.tagContainer > div > p {
+    margin: 0;
+    
+}
+
+.tagDisaabled {
+    background-color: #b2bec3 !important;
+}
+.tagDisaabled > p{
+    color: #636e72 !important;
+}
+
+
+.dimmer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #00000090;
+    z-index: 10;
+}
+.overlay {
+    position: absolute;
+    width: 40%;
+    height: 100%;
+    z-index: 10;
+    right:0;
+    background-color: #f3f3f3;
+}
+
+.oBg {
+    background: url("./ams.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 300px;
+}
+
+.oBg > div {
+    height: 100%;
+    width: 100%;
+    background-color: #00000030;
+    border-radius: 5px;
+    position: relative;
+    background-image:
+        linear-gradient(
+        to top,
+        #000000,
+        #00000030 30%
+        );
+}
+
+.oBg > div > div {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+.oBg > div > div > p {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.5em;
+}
+
+.modalStart {
+    /* height: 65vh; */
+    width: 65vw;
+    background: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; */
+}
+
+.modalStart h2 {
+    color:  #00000090;
+    text-align: center;
+}
+
+.prefCon {
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.centerAbs {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.prefCon > div {
+    margin: 8px;
+    height: 200px;
+    width: 350px;
+    border-radius: 5px;
+}
+
+.prefCon > div > div {
+    height: 100%;
+    width: 100%;
+    background-color: #00000030;
+    border-radius: 5px;
+    background-image:
+        linear-gradient(
+        to top,
+        #00000080,
+        #00000030 20%
+        );
+    position: relative;
+    cursor: pointer;
+}
+
+.prefCon > div > div:hover {
+    background-color: #00000090;
+}
+
+.prefCon > div > div > p {
+    margin: 0;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.tileCent {
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover !important;
+}
+
+.img1 {
+    background-size: cover !important;
+    background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRWT9f_cPcQNGWrBN6-i_9qDJRa0pfyDIWaJgo3V3K_fs-3qIlY)
+}
+.img2 {
+    background: url(https://static.nationalgeographic.nl/files/prod-yourshot-1791825--2-.jpg)
+}
+.img3 {
+    background: url(https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)
+}
+.img4 {
+    background: url(https://cdn1.parksmedia.wdprapps.disney.com/media/blog/wp-content/uploads/2017/08/coasterfeatured.jpg)
+}
+.img5 {
+    background: url(https://www.sportindustry.biz/sites/default/files/White%20Hart%20Lane.jpg)
+}
+.img6 {
+    background: url(https://thumbs.dreamstime.com/b/taj-mahal-famous-historical-monument-taj-mahal-famous-historical-monument-india-113540901.jpg)
+}
+
+.prefNext {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    border-radius: 5px;
+    padding: 15px 25px;
+    font-size: 22px;
+    text-decoration: none;
+    /* margin: 20px; */
+    color: #fff;
+    position: relative;
+    display: inline-block;
+    width: 80%;
+    margin: 10px 0 30px 0;
+    cursor: pointer;
+}
+
+.blue {
+    background-color: #55acee;
+    box-shadow: 0px 5px 0px 0px #3C93D5;
+  }
+
+@media screen and (max-width: 1800px) {
+    /* .modalStart {
+        height: 90vh;
+    } */
+}

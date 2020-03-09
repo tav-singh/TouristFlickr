@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Pref</title>
+</head>
+<body>
+<form action="{{ url_for('user_pref') }}" method="post">
+    <label>Choose your interests of travel:</label>
+    <select id="pref" name="pref" size="6">
+        <option value="nightlife">Nightlife</option>
+        <option value="nature">Nature</option>
+        <option value="beach">Beach</option>
+        <option value="museum">Museum</option>
+        <option value="wildlife">Wildlife</option>
+        <option value="landscape">Landscape</option>
+    </select><br><br>
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

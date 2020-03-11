@@ -247,7 +247,7 @@
                         boxZoom(path.bounds(d), path.centroid(d), 20);
                     });
 
-                countries = countriesGroup
+                cities = countriesGroup
                   .selectAll("myCircles")
                   .data(data)
                   .enter()
@@ -256,12 +256,15 @@
                     .attr("cy", function(d){ return projection([d.long, d.lat])[1] })
                     .attr("r", 14)
                     .style("fill", "69b3a2")
+                    .attr("stroke", "#69b3a2")
+                    .attr("stroke-width", 5)
+                    .attr("fill-opacity", .01)
                   .on("click", function () {
-//                         if (d3.select("#one-city-views").style("display") == "none") {
+                        // if (d3.select("#one-city-views").style("display") == "none") {
                             d3.select("#one-city-views").style("display", "block");
-//                         } else{
-//                             d3.select("#one-city-views").style("display", "none");
-//                         }
+                        // } else{
+                        //     d3.select("#one-city-views").style("display", "none");
+                        // }
                         
                        
                     });

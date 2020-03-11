@@ -4,6 +4,7 @@
 <head>
     <title>Map Test</title>
     <link href="../static/css/styles.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
 <body>
@@ -25,7 +26,7 @@
                 </div>
             </div>
         </div> -->
-        <!-- <div class="overlay">
+        <div id="one-city-views" class="overlay" style="display: none;">
             <div class="oBg">
                 <div>
                     <div>
@@ -34,7 +35,7 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
         
         <div class="tagContainer">
             <div class="turq"><p>Nature</p></div>
@@ -43,8 +44,10 @@
             <div class="tagDisaabled"><p>Theme Parks</p></div>
             <div class="tagDisaabled"><p>Sports</p></div>
             <div class="tagDisaabled"><p>Monuments</p></div>
+            <!-- <div id="print" style="color: white;"></div> //test if result is sent to html-->
         </div>
         <div id="map-holder"></div>
+       
 
     </div>
 <!--To access the ele here in html, otherwise I can write this to a file. -->
@@ -54,6 +57,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" charset="utf-8"></script>
+   <script src="https://d3js.org/d3.v4.js"></script>
+   <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+
     <script>
         // DEFINE VARIABLES
         // Define size of map group
@@ -186,6 +192,20 @@
             .call(zoom);
 
 
+
+        var result = JSON.parse('{{ result | tojson | safe}}');
+        // document.getElementById('print').innerHTML = result[0].longitude+','+result[0].latitude;
+        // Create data for donut:
+        var data = [
+          
+          {name:result[0].class_tag, total: 5000, long:result[0].longitude, lat:result[0].latitude, city: result[0].city}, 
+          {name:result[1].class_tag, total: 5000,long:result[1].longitude, lat:result[1].latitude, city: result[0].city}, 
+          
+        ];
+        
+        
+        
+
         // get map data
         d3.json(
             "https://raw.githubusercontent.com/andybarefoot/andybarefoot-www/master/maps/mapdata/custom50.json",
@@ -226,6 +246,26 @@
                         d3.select(this).classed("country-on", true);
                         boxZoom(path.bounds(d), path.centroid(d), 20);
                     });
+
+                countries = countriesGroup
+                  .selectAll("myCircles")
+                  .data(data)
+                  .enter()
+                  .append("circle")
+                    .attr("cx", function(d){ return projection([d.long, d.lat])[0] })
+                    .attr("cy", function(d){ return projection([d.long, d.lat])[1] })
+                    .attr("r", 14)
+                    .style("fill", "69b3a2")
+                  .on("click", function () {
+                        if (d3.select("#one-city-views").style("display") == "none") {
+                            d3.select("#one-city-views").style("display", "block");
+                        } else{
+                            d3.select("#one-city-views").style("display", "none");
+                        }
+                        
+                       
+                    });
+
                 // Add a label group to each feature/country. This will contain the country name and a background rectangle
                 // Use CSS to have class "countryLabel" initially hidden
                 countryLabels = countriesGroup
@@ -280,6 +320,9 @@
                         return d.bbox.height;
                     });
                 initiateZoom();
+
+                
+
             }
         );
     </script>

@@ -15,7 +15,7 @@ body {
 }
 
 svg rect {
-    fill: #2A2C39;
+    /* fill: #2A2C39; */
     /* map background colour */
 }
 
@@ -64,31 +64,32 @@ svg rect {
     justify-content: center;
     align-items: center;
     border-radius: 2px;
+    background-color: white;
 }
 
 .tagContainer > div > p {
-    color: white;
-
+    color: #222222;
+    
 }
 
 .turq {
-    background-color: #1abc9c;
+    box-shadow: 0px 5px 0px 0px #1abc9c;
 }
 
 .eme {
-    background-color: #d35400;
+    box-shadow: 0px 5px 0px 0px #d35400;
 }
 .ptr {
-    background-color: #3498db;
+    box-shadow: 0px 5px 0px 0px #3498db;
 }
 .sfa {
-    background-color: #f1c40f;
+    box-shadow: 0px 5px 0px 0px #f1c40f;
 }
 .car {
-    background-color: #e67e22;
+    box-shadow: 0px 5px 0px 0px #e67e22;
 }
 .brp {
-    background-color: #2980b9;
+    box-shadow: 0px 5px 0px 0px #2980b9;
 }
 
 .tagContainer > div > p {
@@ -96,11 +97,12 @@ svg rect {
     
 }
 
-.tagDisaabled {
+.tagDisabled {
     background-color: #b2bec3 !important;
 }
-.tagDisaabled > p{
+.tagDisabled > p{
     color: #636e72 !important;
+    
 }
 
 
@@ -118,6 +120,19 @@ svg rect {
     z-index: 10;
     right:0;
     background-color: #f3f3f3;
+}
+
+#close-city {
+    position: absolute;
+    z-index: 15;
+    right: 0;
+    color: white;
+    height: 30px;
+    width: 30px;
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0;
+    cursor: pointer;
 }
 
 .oBg {
@@ -288,6 +303,24 @@ svg rect {
     box-shadow: 0px 5px 0px 0px #4a69bd;
   }
 
+  .chart-gauge
+  {
+    width: 400px;
+    margin: 100px auto  
+   } 
+  .chart-filled
+  {
+      fill: steelblue;
+  }
+  .chart-empty
+  {
+      fill: #dedede;
+  }
+
+  .needle, .needle-center
+  {
+      fill: #464A4F;
+  }
 @media screen and (max-width: 1800px) {
     /* .modalStart {
         height: 90vh;

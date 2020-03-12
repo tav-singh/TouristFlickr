@@ -2,11 +2,12 @@ import os
 import sqlite3
 from flask import Flask
 from flask import request, render_template
+from flask import jsonify
 import sys
 from wtforms import Form, SelectMultipleField
 from flask_jsglue import JSGlue 
 
-NUM_ELE = 2
+NUM_ELE = 9
 
 def dict_factory(cursor, row):
     d = {}
@@ -26,9 +27,14 @@ def query_db(query, params, num_ele = 20):
     # print(rows[0])
     return rows[:num_ele]
 
+def get_city_info(photo_id):
+    query = "select *, photos.id as photo_id from photos inner join costs_combined on photos.cost_id=costs_combined.id where photo_id = ?"
+    query_response = query_db(query, (photo_id,), 1)
+    return query_response
 
 def get_top_elements_from_db(pref):
-    query = "select * from photos where class_tag = ? order by popularity desc"
+    # query = "select * from photos where class_tag = ? order by popularity desc"
+    query = "select *, photos.id as photo_id from photos inner join costs_combined on photos.cost_id=costs_combined.id where class_tag = ? order by popularity desc"
     total_pref = len(pref)
     ret_ele = []
     for ele in pref:
@@ -75,6 +81,14 @@ def create_app(test_config=None):
         result = get_top_elements_from_db([pref])
         # print(result)
         return render_template('map.html', result=result, pref=pref)
+
+    @app.route('/city_info')
+    def city_info():
+        query = request.args.get('photo_id')
+        data = get_city_info(query)
+        print(data[0], file=sys.stderr)
+        html = render_template('city_info.html', data=data[0])
+        return jsonify({'results':html})
 
     from . import db
     db.init_app(app)

@@ -4,48 +4,26 @@
 <head>
     <title>Map Test</title>
     <link href="../static/css/styles.css" rel="stylesheet" type="text/css">
-    <meta id="result" data-result="{{result}}">
-
+    <meta id="result" data-result="{{result}}" data-pref="{{pref}}">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    {{ JSGlue.include() }}
 </head>
 
 <body>
 
     <div style="position: relative">
-        <!-- <div class="dimmer">
-            <div class="modalStart">
-                <h2>Where do you want to go?</h2>
-                <div class="prefCon">
-                    <div class="img1 tileCent"><div><p>Nature</p></div></div>
-                    <div class="img2 tileCent"><div><p>Wildlife</p></div></div>
-                    <div class="img3 tileCent"><div><p>Culinary</p></div></div>
-                    <div class="img4 tileCent"><div><p>Theme Parks</p></div></div>
-                    <div class="img5 tileCent"><div><p>Sports</p></div></div>
-                    <div class="img6 tileCent"><div><p>Monuments</p></div></div>
-                </div>
-                <div class="prefNext">
-                    <button class="btn blue">Pick a preference </button>
-                </div>
-            </div>
-        </div> -->
         <div id="one-city-views" class="overlay" style="display: none;">
-            <div class="oBg">
-                <div>
-                    <div>
-                        <p style="font-size: 1em; opacity: 85%;">Country</p>
-                        <p>City</p>
-                    </div>
-                </div>
-            </div>
+
         </div>
+
         
         <div class="tagContainer">
-            <div class="turq"><p>Nature</p></div>
-            <div class="eme"><p>Wildlife</p></div>
-            <div class="ptr"><p>Culinary</p></div>
-            <div class="tagDisaabled"><p>Theme Parks</p></div>
-            <div class="tagDisaabled"><p>Sports</p></div>
-            <div class="tagDisaabled"><p>Monuments</p></div>
+            <div id="t-nightlife" class="turq tags"><p>Nightlife</p></div>
+            <div id="t-nature" class="eme tags"><p>Nature</p></div>
+            <div id="t-beach" class="ptr tags"><p>Beach</p></div>
+            <div id="t-museum" class="sfa tags "><p>Museum</p></div>
+            <div id="t-wildlife" class="car tags"><p>Wildlife</p></div>
+            <div id="t-landscape" class="brp tags"><p>Landscape</p></div>
             <!-- <div id="print" style="color: white;"></div> //test if result is sent to html-->
         </div>
         <div id="map-holder"></div>
@@ -68,20 +46,40 @@
         $(() => {
             // console.log($('#result').data().result)
             let result = $('#result').data().result.replace(/'/g, '"')
-            console.log( JSON.parse(result) )   
+            console.log( JSON.parse(result) )
+            console.log( $('#result').data().pref )
+
+            $('.tags').each(function(i, obj) {
+                if ($(this)[0].id !== "t-"+$('#result').data().pref)
+                $(this).addClass('tagDisabled')
+            });
         })
 
-        function IsJsonString(str) {
-            try {
-                JSON.parse(str)
-            } catch (e) {
-                return false
+        //change tag
+        $(".tags").on('click', (event) => {
+            let newTag = event.currentTarget.id.replace("t-", "")
+            if (newTag !== $('#result').data().pref) {
+                location.href = Flask.url_for('user_pref', {pref: newTag});
             }
-            return true
-        }
+        })
+
+        $("#close-city").click(() => {
+            console.log("click")
+                d3.select("#one-city-views").style("display", "none")
+                cityOpened = false
+
+        }) 
 
     </script>
     <script>
+        tagColors = {
+            nightlife: "1abc9c",
+            nature: "d35400",
+            beach: "3498db", 
+            museum: "f1c40f", 
+            wildlife: "e67e22",
+            landscape: "2980b9"
+        }
         // DEFINE VARIABLES
         // Define size of map group
         // Full world map is 2:1 ratio
@@ -217,16 +215,8 @@
         var result = JSON.parse('{{ result | tojson | safe}}');
         // document.getElementById('print').innerHTML = result[0].longitude+','+result[0].latitude;
         // Create data for donut:
-        var data = [
-          
-          {name:result[0].class_tag, total: 5000, long:result[0].longitude, lat:result[0].latitude, city: result[0].city}, 
-          {name:result[1].class_tag, total: 5000,long:result[1].longitude, lat:result[1].latitude, city: result[0].city}, 
-          
-        ];
+        var data = result;
         
-        
-        
-
         // get map data
         d3.json(
             "https://raw.githubusercontent.com/andybarefoot/andybarefoot-www/master/maps/mapdata/custom50.json",
@@ -267,27 +257,47 @@
                         d3.select(this).classed("country-on", true);
                         boxZoom(path.bounds(d), path.centroid(d), 20);
                     });
+                       
 
+                var cityOpened = false
+                
                 cities = countriesGroup
                   .selectAll("myCircles")
                   .data(data)
                   .enter()
                   .append("circle")
-                    .attr("cx", function(d){ return projection([d.long, d.lat])[0] })
-                    .attr("cy", function(d){ return projection([d.long, d.lat])[1] })
+                    .attr("cx", function(d){ return projection([d.longitude, d.latitude])[0] })
+                    .attr("cy", function(d){ return projection([d.longitude, d.latitude])[1] })
                     .attr("r", 14)
-                    .style("fill", "69b3a2")
-                    .attr("stroke", "#69b3a2")
+                    .style("fill", tagColors[$('#result').data().pref])
+                    .attr("stroke", "#" + tagColors[$('#result').data().pref])
                     .attr("stroke-width", 5)
                     .attr("fill-opacity", .01)
-                  .on("click", function () {
+                  .on("click", function (val) {
+                        // if (!cityOpened) {
+                            console.log(val)
+                            $.ajax({
+                            url: "/city_info",
+                            type: "get",
+                            data: {photo_id: val.photo_id},
+                            success: function(response) {
+                                console.log("success")
+                                console.log(response)
+                                $("#one-city-views").html(response.results)
+                            },
+                            error: function(xhr) {
+                            //Do Something to handle error
+                            }
+                            });
+
+                            d3.select("#one-city-views").style("display", "block")
+                            cityOpened = true
+                        // }
+                        
                         // if (d3.select("#one-city-views").style("display") == "none") {
-                            d3.select("#one-city-views").style("display", "block");
                         // } else{
                         //     d3.select("#one-city-views").style("display", "none");
                         // }
-                        
-                       
                     });
 
                 // Add a label group to each feature/country. This will contain the country name and a background rectangle

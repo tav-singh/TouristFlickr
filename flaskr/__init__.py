@@ -73,7 +73,8 @@ def create_app(test_config=None):
         pref = request.args.get('pref')
         # print(pref, file=sys.stderr)
         result = get_top_elements_from_db([pref])
-        return render_template('map.html', result=result)
+        # print(result)
+        return render_template('map.html', result=result, pref=pref)
 
     from . import db
     db.init_app(app)

@@ -4,6 +4,7 @@ from flask import Flask
 from flask import request, render_template
 import sys
 from wtforms import Form, SelectMultipleField
+from flask_jsglue import JSGlue 
 
 NUM_ELE = 2
 
@@ -44,6 +45,8 @@ def create_app(test_config=None):
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
     )
 
+    jsglue = JSGlue(app)
+
     if test_config is None:
         # load the instance config, if it exists, when not testing
         app.config.from_pyfile('config.py', silent=True)
@@ -62,13 +65,13 @@ def create_app(test_config=None):
     def hello():
         title = "Input Preference"
         print(os.getcwd(), file=sys.stderr)
-        # return "heloo"
         return render_template('user_pref.html', title=title)
 
-    @app.route('/user_pref', methods=['POST'])
+    @app.route('/attractions', methods=['GET'])
     def user_pref():
-        pref = request.form['pref']
-        print(pref, file=sys.stderr)
+        # print(request.args.get('pref'), file=sys.stderr)
+        pref = request.args.get('pref')
+        # print(pref, file=sys.stderr)
         result = get_top_elements_from_db([pref])
         return render_template('map.html', result=result)
 

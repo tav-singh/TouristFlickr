@@ -3,20 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <title>User Pref</title>
+    <link href="../static/css/user_pref.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/styles.css" rel="stylesheet" type="text/css">
+    {{ JSGlue.include() }}
 </head>
 <body>
-<form action="{{ url_for('user_pref') }}" method="post">
-    <label>Choose your interests of travel:</label>
-    <select id="pref" name="pref" size="6">
-        <option value="nightlife">Nightlife</option>
-        <option value="nature">Nature</option>
-        <option value="beach">Beach</option>
-        <option value="museum">Museum</option>
-        <option value="wildlife">Wildlife</option>
-        <option value="landscape">Landscape</option>
-    </select><br><br>
-    <input type="submit" value="Submit">
-</form>
+    <div class="pref-container">
+        <div class="pref-bg">
+        </div>
+        <div class="bg-blur"></div>
+        <div class="pref-content">
+            <h2>What attraction do you prefer?</h2>
+            <div class="prefCon">
+                <div id="nightlife" class="img2 tileCent"><div><p>Nightlife</p></div></div>
+                <div id="nature" class="img1 tileCent"><div><p>Nature</p></div></div>
+                <div id="beach" class="img3 tileCent"><div><p>Beach</p></div></div>
+                <div id="museum" class="img4 tileCent"><div><p>Museum</p></div></div>
+                <div id="wildlife" class="img5 tileCent"><div><p>Wildlife</p></div></div>
+                <div id="ladnscape" class="img6 tileCent"><div><p>Landscape</p></div></div>
+            </div>
+            <div class="prefNext">
+                <button id="next" class="btn blue btn-disabled" onclick="next()">Pick an attraction</button>
+            </div>
+            <!-- <form action="{{ url_for('user_pref') }}" method="post">
+                <label>Choose your interests of travel:</label>
+                <select id="pref" name="pref" size="6">
+                    <option value="nightlife">Nightlife</option>
+                    <option value="nature">Nature</option>
+                    <option value="beach">Beach</option>
+                    <option value="museum">Museum</option>
+                    <option value="wildlife">Wildlife</option>
+                    <option value="landscape">Landscape</option>
+                </select><br><br>
+                <input type="submit" value="Submit">
+            </form> -->
+        </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+    <script>
+        
+        var picked = null
+        $(".tileCent").on('click', (event) => {
+            checkPicked(event.currentTarget.id)
+
+            if (picked !== null) {
+                $("#next").removeClass('btn-disabled')
+                $("#next").html('Find Destinations');
+            } else {
+                $("#next").addClass('btn-disabled')
+                $("#next").html('Pick an attraction');
+            }
+        })
+
+        function checkPicked(val) {
+            if (picked === null) {
+                $("#" + val).children('div').addClass('picked')
+            } else {
+                $("#" + picked).children('div').removeClass('picked')
+                if (val !== picked)
+                    $("#" + val).children('div').addClass('picked')
+            }
+            picked = val == picked ? null : val
+        }
+
+        function next() {
+            if (picked !== null) {
+                // $.post(Flask.url_for('user_pref', {}));
+                location.href = Flask.url_for('user_pref', {pref: picked});
+            }
+        }
+
+
+    </script>
 
 </body>
 </html>

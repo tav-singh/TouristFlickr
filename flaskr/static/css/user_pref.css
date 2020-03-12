@@ -1,0 +1,51 @@
+.pref-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.pref-content {
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background: #f5f6faE6;
+    width: 60vw;
+    border-radius: 5px;
+}
+
+.bg-blur {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #00000030;
+    background-image:
+        linear-gradient(
+        to top,
+        #00000080,
+        #00000080
+        );
+    z-index: 1;
+}
+
+.pref-bg {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover !important;
+    background: url("../image/pref-bg.jpg");
+    -webkit-filter: blur(1px);
+    -moz-filter: blur(1px);
+    -o-filter: blur(1px);
+    -ms-filter: blur(1px);
+    filter: blur(1px);
+    z-index: 0;
+}
+

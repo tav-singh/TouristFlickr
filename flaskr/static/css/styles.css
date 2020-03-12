@@ -3,7 +3,7 @@
 
 body {
     margin: 0;
-    background-color: #2A2C39;
+    /* background-color: #2A2C39; */
     font-family: 'Open Sans', 'sans-serif';
     font-weight: 200;
     font-size: 17px;
@@ -204,7 +204,7 @@ svg rect {
     background-image:
         linear-gradient(
         to top,
-        #00000080,
+        #00000090,
         #00000030 20%
         );
     position: relative;
@@ -212,7 +212,7 @@ svg rect {
 }
 
 .prefCon > div > div:hover {
-    background-color: #00000090;
+    background-color: #00000050;
 }
 
 .prefCon > div > div > p {
@@ -221,7 +221,12 @@ svg rect {
     bottom: 10px;
     left: 10px;
     color: #ffffff;
-    font-weight: 600;
+    font-weight: 500;
+}
+
+.picked {
+    background-color: #000000a6 !important;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .tileCent {
@@ -235,19 +240,19 @@ svg rect {
     background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRWT9f_cPcQNGWrBN6-i_9qDJRa0pfyDIWaJgo3V3K_fs-3qIlY)
 }
 .img2 {
-    background: url(https://static.nationalgeographic.nl/files/prod-yourshot-1791825--2-.jpg)
+    background: url(https://images.unsplash.com/photo-1546006508-5bd647796a4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)
 }
 .img3 {
-    background: url(https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)
+    background: url(https://images.unsplash.com/photo-1538013532668-5ccc57ce83eb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)
 }
 .img4 {
-    background: url(https://cdn1.parksmedia.wdprapps.disney.com/media/blog/wp-content/uploads/2017/08/coasterfeatured.jpg)
+    background: url(https://images.unsplash.com/photo-1544213456-bc37cb97df74?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)
 }
 .img5 {
-    background: url(https://www.sportindustry.biz/sites/default/files/White%20Hart%20Lane.jpg)
+    background: url(https://images.unsplash.com/photo-1481889617387-82a8f2413b6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80)
 }
 .img6 {
-    background: url(https://thumbs.dreamstime.com/b/taj-mahal-famous-historical-monument-taj-mahal-famous-historical-monument-india-113540901.jpg)
+    background: url(https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)
 }
 
 .prefNext {
@@ -260,19 +265,27 @@ svg rect {
     border-radius: 5px;
     padding: 15px 25px;
     font-size: 22px;
+    font-weight: 300;
     text-decoration: none;
     /* margin: 20px; */
     color: #fff;
     position: relative;
     display: inline-block;
-    width: 80%;
+    /* width: 80%; */
     margin: 10px 0 30px 0;
     cursor: pointer;
 }
 
+.btn-disabled {
+    background-color: #bdbdbd !important;
+    color: #8d8d8d !important;
+    box-shadow: none !important;
+}
+
 .blue {
-    background-color: #55acee;
-    box-shadow: 0px 5px 0px 0px #3C93D5;
+    background-color: #1e3799;
+    border: none;
+    box-shadow: 0px 5px 0px 0px #4a69bd;
   }
 
 @media screen and (max-width: 1800px) {

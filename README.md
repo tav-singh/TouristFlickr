@@ -44,3 +44,4 @@ data on what we can possibly use to calculate crime index/safety level. The data
 
 ### Week 5
 1. Added css to landing page, intregated tag selection with backend. (Gamma)
+2. Populated photos/ living expenses tables, set up the backend to send top X photos json to the map html based on the tag chosen on user_pref page. 

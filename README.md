@@ -41,3 +41,6 @@ data on what we can possibly use to calculate crime index/safety level. The data
 4. Graphs and charts from cost of living and safety index (Jiacheng)
 5. Design the front end and make the intermediate report(Leyu)
 6. Design graphs and horizontally scrolling images display(Chenghan)
+
+### Week 5
+1. Added css to landing page, intregated tag selection with backend. (Gamma)

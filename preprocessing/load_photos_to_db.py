@@ -61,6 +61,10 @@ if __name__ == '__main__':
         class_tag = p_tags[i]
         crime_id = 0
         tagsList = []
+        cdn_url = "https://farm?.staticflickr.com/?/?_?.jpg".format(child.attrib["farm"],
+                                                                            child.attrib["server"],
+                                                                            child.attrib["id"],
+                                                                            child.attrib["secret"])
         for subchild in child:
             if subchild.tag == "urls":
                 for url in subchild:

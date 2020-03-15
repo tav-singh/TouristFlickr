@@ -13,6 +13,9 @@ NUM_ELE = 2
 
 # LIVING_INDEX_YEARS = ["2015", "2016", "2017", "2018", "2019"]
 
+info_params = {"cost" : ["cost_living_index", "groceries_index" , "restaurant_price_index"] , "pollution" : ["pollution_index"]
+    , "traffic": ["traffic_index", "time_index", "inefficiency_index"], "crime": ["crime_index", "safety_index"] }
+
 def dict_factory(cursor, row):
     d = {}
     for idx, col in enumerate(cursor.description):

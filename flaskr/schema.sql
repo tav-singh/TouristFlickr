@@ -119,3 +119,29 @@ ALTER TABLE living_expense drop column cost;
 ALTER TABLE living_expense add cost_index DECIMAL (10,2);
 ALTER TABLE living_expense add groceries_index DECIMAL (10,2);
 ALTER TABLE living_expense add pp_index DECIMAL (10,2);*/
+
+/* VIEWS and sql
+
+select count(*) from (select city, country, latitude, longitude, sum(popularity) as popularity, group_concat(url) as url,
+group_concat(cdn_url) as cdn_url, group_concat(class_tag) as class_tag from
+(select * from photos_nus where class_tag like '%beach%') group by city, country) as p inner join
+(select city, country, group_concat(groceries_index) as groceries_index, group_concat(restaurant_price_index) as
+restaurant_price_index, group_concat(cost_living_index) as cost_living_index, group_concat(year) as year from cost
+group by city, country) c on p.city = c.city where p.country = c.country order by p.popularity desc limit 2
+
+
+select * from (select city, country, latitude, longitude, sum(popularity) as popularity, group_concat(url) as url,
+group_concat(cdn_url) as cdn_url, group_concat(class_tag) as class_tag from
+(select * from photos_nus where class_tag like '%beach%') group by city, country) as p inner join
+[cost_view] c on p.city = c.city where p.country = c.country order by p.popularity desc limit 2
+
+select city, country, latitude, longitude, sum(popularity) as popularity, group_concat(url) as url, group_concat(cdn_url) as cdn_url, group_concat(class_tag) as class_tag from photos_nus group by city, country as p inner join cost on p.city = cost.city, p.country = cost.country order by p.popularity desc limit 2
+
+create view [crime_view] as
+select city, country, group_concat(crime_index) as crime_index, group_concat(safety_index) as safety_index, group_concat(year)
+as year from crime group by city, country
+
+
+select city, country, latitude, longitude, sum(popularity) as popularity, group_concat(url) as url, group_concat(cdn_url) as cdn_url, group_concat(class_tag) as class_tag from (select * from photos_nus where class_tag like '%beach%') group by city, country
+
+*/

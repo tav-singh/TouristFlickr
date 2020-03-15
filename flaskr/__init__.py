@@ -7,10 +7,11 @@ import sys
 from wtforms import Form, SelectMultipleField
 from flask_jsglue import JSGlue 
 import json
+import copy
 
 NUM_ELE = 2
 
-LIVING_INDEX_YEARS = ["2016", "2017", "2018"]
+# LIVING_INDEX_YEARS = ["2015", "2016", "2017", "2018", "2019"]
 
 def dict_factory(cursor, row):
     d = {}
@@ -18,11 +19,11 @@ def dict_factory(cursor, row):
         d[col[0]] = row[idx]
     return d
 
-def query_db(query, params, num_ele = 20):
+def query_db(query, num_ele = 20):
     connection = sqlite3.connect('instance/flaskr.sqlite')
     connection.row_factory = dict_factory
     cursor = connection.cursor()
-    cursor.execute(query, params)
+    cursor.execute(query)
     rows = cursor.fetchall()
     # for row in rows:
     #     print(row)
@@ -39,29 +40,55 @@ def create_json(photos_list):
     # pics_json = json.dumps(photos_list)
     # print(pics_json)
     formatted_list = []
+    class_tag_overall = set()
     for photos in photos_list:
         a = dict()
         a["city"] = photos['city']
         a["country"] = photos['country']
         a["latitude"] = photos['latitude']
         a["longitude"] = photos['longitude']
-        a["cost_id"] = photos['cost_id']
+        # a["cost_id"] = photos['cost_id']
         a["popularity"] = photos['popularity']
+        a["class_tag_overall"] = {}
         description_list = []
         url_list = photos['url'].split(',')
+        cdn_url_list = photos['cdn_url'].split(',')
         print(photos['url'])
         print(url_list)
         class_tags_list = photos['class_tag'].split(',')
         for index in range(0,len(url_list)):
             description_dict = dict()
             description_dict["url"] = url_list[index]
+            description_dict["cdn_url"] = cdn_url_list[index]
             description_dict["class_tag"] = class_tags_list[index]
+            # print(class_tags_list[index].split("-"))
+            for class_tag in class_tags_list[index].split("-"):
+                # print(class_tag)
+                if class_tag in a["class_tag_overall"]:
+                    a["class_tag_overall"][class_tag] = a["class_tag_overall"][class_tag] + 1
+                else:
+                    a["class_tag_overall"][class_tag] = 1
+            class_tag_overall.add(class_tags_list[index])
             description_list.append(description_dict)
         a["description"] = description_list
-        for year in LIVING_INDEX_YEARS:
-            a["cost_living_index_" + year] = photos['cost_living_index_' + year]
-            a["groceries_index_" + year] = photos['groceries_index_' + year]
-            a["restaurant_price_index_" + year] = photos['restaurant_price_index_' + year]
+        year_list = photos["year"].split(",")
+        groceries_index_list = photos["groceries_index"].split(",")
+        restaurant_price_index_list = photos["restaurant_price_index"].split(",")
+        cost_living_index_list = photos["cost_living_index"].split(",")
+        cost_dict = {}
+        for year_index in range(len(year_list)):
+            year = year_list[year_index]
+            cost_dict[year] = {}
+            cost_dict[year]["groceries_index"] = groceries_index_list[year_index]
+            cost_dict[year]["restaurant_price_index"] = restaurant_price_index_list[year_index]
+            cost_dict[year]["cost_living_index"] = cost_living_index_list[year_index]
+        a["cost"] = copy.deepcopy(cost_dict)
+
+
+        # for year in LIVING_INDEX_YEARS:
+        #     a["cost_living_index_" + year] = photos['cost_living_index_' + year]
+        #     a["groceries_index_" + year] = photos['groceries_index_' + year]
+        #     a["restaurant_price_index_" + year] = photos['restaurant_price_index_' + year]
         formatted_list.append(a)
     # print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n\n")
     print(formatted_list)
@@ -73,23 +100,36 @@ def get_top_elements_from_db(pref):
     # query = "select *, photos.id as photo_id from photos inner join costs_combined on photos.cost_id=costs_combined.id where class_tag = ? order by popularity desc"
     total_pref = len(pref)
     ret_ele = []
-    inner_query = "select * from photos where class_tag=?"
-    if(total_pref == 2 or total_pref == 3):
-        inner_query = inner_query + " and class_tag=?" * (number_of_pref - 1)
+    inner_query = "select * from photos_nus where class_tag like '%{}%'"
+    inner_query = inner_query.format(pref[0])
+    print(inner_query)
+    if(total_pref == 2 ):
+        inner_query = inner_query + " and class_tag like '%{}%'"
+        inner_query = inner_query.format(pref[1])
+    elif(total_pref == 3):
+        inner_query = inner_query +  " and class_tag like '%{}%'" + " and class_tag like '%{}%'"
+        inner_query = inner_query.format(pref[1], pref[2])
+    # for p in pref:
+    #     inner_query.format()
     query = "select * from (" \
-            "select city, country, latitude, longitude, cost_id, sum(popularity) as popularity, group_concat(url) as url, group_concat(class_tag) as class_tag " \
-            "from (" + inner_query + ")" + " group by city" \
-            ") as p inner join costs_combined on p.cost_id=costs_combined.id order by p.popularity desc"
-    and_query_response = query_db(query, tuple(pref), NUM_ELE)
+            "select city, country, latitude, longitude, sum(popularity) as popularity, group_concat(url) as url, " \
+            "group_concat(cdn_url) as cdn_url, group_concat(class_tag) as class_tag " \
+            "from (" + inner_query + ")" + " group by city, country" \
+            ") as p inner join  [cost_view] c on p.city = c.city where p.country = c.country " \
+                                           "order by p.popularity desc"
+    print(query)
+    # print(tuple(pref))
+    and_query_response = query_db(query, NUM_ELE)
     ret_ele.extend(and_query_response)
     ele_remaining = NUM_ELE - len(and_query_response)
     if(ele_remaining > 2 and total_pref > 1):
         query = "select * from (" \
-                "select city, country, latitude, longitude, cost_id, sum(popularity) as popularity, group_concat(url) as url, group_concat(class_tag) as class_tag " \
-                "from (" + "select * from photos where class_tag=?" + ")" + " group by city" \
-                                               ") as p inner join costs_combined on p.cost_id=costs_combined.id order by p.popularity desc"
+                "select city, country, latitude, longitude, sum(popularity) as popularity, group_concat(url) as " \
+                "url, group_concat(class_tag) as class_tag from (" + "select * from photos_nus where class_tag like '%?%'" + \
+                ")" + " group by city,country) as p inner join [cost_view] c on p.city = costs.city where" \
+                      " p.country = costs.country order by p.popularity desc"
         for ele in pref:
-            query_response = query_db(query, (ele,), int(ele_remaining/total_pref))
+            query_response = query_db(query.format(ele), int(ele_remaining/total_pref))
             # print(query_response)
             ret_ele.extend(query_response)
     # print(ret_ele)

@@ -4,8 +4,8 @@ import sqlite3
 
 
 def insert_db(num_columns, out):
-    query = 'insert into photos(comments, views, popularity, latitude, longitude, city, country, url, tags, class_tag, ' \
-            'cost_id, safety_id ) values ({0})'
+    query = 'insert into photos_nus(comments, views, popularity, latitude, longitude, city, country, url, cdn_url, class_tag' \
+            ') values ({0})'
     query = query.format(','.join('?' * num_columns))
     connection = sqlite3.connect('../instance/flaskr.sqlite')
     cursor = connection.cursor()
@@ -18,7 +18,7 @@ def get_cost_from_db(city, country):
     connection = sqlite3.connect('../instance/flaskr.sqlite')
     cursor = connection.cursor()
     t = (city.lower(),)
-    query = 'select id from costs_combined where LOWER(city)=?'
+    query = 'select id from cost where LOWER(city)=?'
     cursor.execute(query, t)
     cost = cursor.fetchone()
     if cost is None:
@@ -31,7 +31,7 @@ def get_cost_from_db(city, country):
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print('Usage: python3 flickr.py [filepath]')
+        print('Usage: python3 load_photos_to_db.py [filepath]')
         sys.exit(0)
 
     path = sys.argv[1]
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     tree = ET.parse(path)
     root = tree.getroot()
     a = {}
-    p_tags= ["nightlife", "nature", "beach", "museum", "wildlife", "landscape"]
+    p_tags= ["city", "nature", "beach", "architecture", "lake", "mountains"]
     i = 0
     tuplist = []
     count_city = 0
@@ -47,7 +47,7 @@ if __name__ == '__main__':
     # get_cost_from_db('Agoura Hills', 'United States')
     # exit(0)
     for child in root:
-        i = i % 6
+        # i = i % 6
         flag = 1
         views = int(child.attrib["views"])
         comments = 0
@@ -61,10 +61,12 @@ if __name__ == '__main__':
         class_tag = p_tags[i]
         crime_id = 0
         tagsList = []
-        cdn_url = "https://farm?.staticflickr.com/?/?_?.jpg".format(child.attrib["farm"],
+        cdn_url = "https://farm{0}.staticflickr.com/{1}/{2}_{3}.jpg".format(child.attrib["farm"],
                                                                             child.attrib["server"],
                                                                             child.attrib["id"],
                                                                             child.attrib["secret"])
+        # print(cdn_url)
+        # break
         for subchild in child:
             if subchild.tag == "urls":
                 for url in subchild:
@@ -72,8 +74,17 @@ if __name__ == '__main__':
 
             if subchild.tag == "tags":
                 for tag in subchild:
-                    tagsList.append(tag.text.join(tag.text.split()))
-                tagsList.append(p_tags[i])
+                    # tagsList.append(tag.text.join(tag.text.split()))
+                    tag_text = tag.text.join(tag.text.split())
+                    if tag_text in p_tags:
+                        tagsList.append(tag_text)
+                    # if tag_text in a:
+                    #     a[tag_text] = a[tag_text] + 1
+                    # else:
+                    #     a[tag_text] = 1
+                # tagsList.append(p_tags[i])
+                if not tagsList:
+                    continue
             if subchild.tag == "comments":
                 if subchild.text.isspace() == False:
                     comments = int(subchild.text)
@@ -97,22 +108,22 @@ if __name__ == '__main__':
                     country = country + country_t.text
         if(flag == 0):
             continue
-        tags = "-".join(ele for ele in tagsList)
+        class_tag = "-".join(ele for ele in tagsList)
         # print(tagsList)
         # print(comments, views, popularity, latitude, longitude, city, country, photo_url, tags, class_tag)
-        cost_id = get_cost_from_db(city, country)
-        if cost_id is None:
-            continue
-        print(cost_id[0])
-        tuplist.append((comments, views, popularity, latitude, longitude, city, country, photo_url, tags, class_tag, cost_id[0], 0))
+        # cost_id = get_cost_from_db(city, country)
+        # if cost_id is None:
+        #     continue
+        # print(cost_id[0])
+        tuplist.append((comments, views, popularity, latitude, longitude, city, country, photo_url, cdn_url, class_tag,))
         # print(tags)
-        i = i + 1
+        # i = i + 1
         # if(i == 4):
         #     break
-    print("done processing xml")
-    print(count_city, count_country)
-    insert_db(12, tuplist)
 
+    print(count_city)
+    insert_db(10, tuplist)
+    print("done processing xml")
 
 
 
@@ -133,6 +144,6 @@ if __name__ == '__main__':
         # break
     # a_rev = {k: v for k, v in sorted(a.items(), key=lambda item: item[1], reverse=True)}
     # sorted_a = sorted(a.items(), key=lambda kv: kv[1], reverse=True)
-    # print(sorted_a[:20])
+    # print(sorted_a[:100])
 
 

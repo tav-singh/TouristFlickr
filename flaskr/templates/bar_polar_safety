@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <script src="D:\Github\incubator-echarts-master\dist\echarts.js"></script> 
+  </head>
+  <body>
+    <!-- prepare dom for ECharts with size -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // Based on dom，initial echarts
+        var myChart = echarts.init(document.getElementById('main'));
+        //This is the comparison of all countries' safety coefficient, it is not for any special city/country
+        // Specifying configuration items and data for the chart
+          var option = {
+            angleAxis: {
+                type: 'category',
+                data: ['Australia', 'Belgium', 'Brazil', 'Canada', 'China', 'Finland','France','Germany','Greece','India','Italy','Japan','Mexico','Netherlands','Norway','Philippines','Poland','Portugal','Russia','Slovakia','South Africa','Spain','Sweden','Switzerland','Thailand','UK','USA']
+            },
+            radiusAxis: {
+            },
+            polar: {
+            },
+            series: [{
+                type: 'bar',
+                data: [914.32,906.33,571.82,811.7,536.95,865.76,962.05,792.33,624.5,283.72,886.56,959.54,393.66,844.47,1166.57,440.36,441.62,556.34,400.04,547.18,443.16,670.86,967.87,1431.42,525.17,970.83,862.67],
+                coordinateSystem: 'polar',
+                name: 'Cost of Living 2016',
+                stack: 'a'
+            }, {
+                type: 'bar',
+                data: [976.74,964.8,627.65,846.44,543.05,955.14,1025.33,847,694.42,323.3,886.61,1010.01,428.98,918.04,1307.93,457.34,493.45,609.04,509.25,586.56,539.67,702.33,1039.35,1574.95,580.44,1018.04,901.36],
+                coordinateSystem: 'polar',
+                name: 'Cost of Living 2017',
+                stack: 'a'
+            }, {
+                type: 'bar',
+                data: [1040.56,1069.27,666.4,921.15,571.06,1070.98,1160.35,942.12,778.65,345.47,998.53,1135.49,432.04,1028.36,1464.72,496.82,568.29,688.54,532.98,691.52,610.1,781.92,1135.12,1625.38,637.59,1108.13,935.19],
+                coordinateSystem: 'polar',
+                name: 'Cost of Living 2018',
+                stack: 'a'
+            }],
+            legend: {
+                show: true,
+                data: ['Cost of Living 2016', 'Cost of Living 2017', 'Cost of Living 2018']
+            }
+        };
+          // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+      </script>
+  </body>
+</html>

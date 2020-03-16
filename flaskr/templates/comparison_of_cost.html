@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <!-- route of echarts.js-->
+  </head>
+  <body>
+    <!-- prepare dom for ECharts with size -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // Based on dom，initial echarts
+        var myChart = echarts.init(document.getElementById('main'));
+        // This chart is for comparing three cities' different cost(cost_living, Groceries, Restaurant_prize)
+        // Specifying configuration items and data for the chart
+          myChart.showLoading();
+
+          $.get(ROOT_PATH + 'data/asset/data/life-expectancy.json', function (data) {
+              myChart.hideLoading();
+
+              var itemStyle = {
+                  opacity: 0.8,
+                  shadowBlur: 10,
+                  shadowOffsetX: 0,
+                  shadowOffsetY: 0,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+              };
+
+              var sizeFunction = function (x) {
+                  var y = Math.sqrt(x / 5e8) + 0.1;
+                  return y * 80;
+              };
+              // Schema:
+              var schema = [
+                  {name: 'Groceries_prize', index: 0, text: 'Groceries_prize', unit: '$'},
+                  {name: 'Restaurant_prize', index: 1, text: 'Restaurant_prize', unit: '$'},
+                  {name: 'Cost_living', index: 2, text: 'Cost_living', unit: '$'},
+                  {name: 'Country', index: 3, text: 'Country', unit: ''}
+              ];
+
+              option = {
+                  baseOption: {
+                      timeline: {
+                          axisType: 'category',
+                          orient: 'vertical',
+                          autoPlay: true,
+                          inverse: true,
+                          playInterval: 1000,
+                          left: null,
+                          right: 0,
+                          top: 20,
+                          bottom: 20,
+                          width: 55,
+                          height: null,
+                          label: {
+                              color: '#999'
+                          },
+                          symbol: 'none',
+                          lineStyle: {
+                              color: '#555'
+                          },
+                          checkpointStyle: {
+                              color: '#bbb',
+                              borderColor: '#777',
+                              borderWidth: 2
+                          },
+                          controlStyle: {
+                              showNextBtn: false,
+                              showPrevBtn: false,
+                              color: '#666',
+                              borderColor: '#666'
+                          },
+                          emphasis: {
+                              label: {
+                                  color: '#fff'
+                              },
+                              controlStyle: {
+                                  color: '#aaa',
+                                  borderColor: '#aaa'
+                              }
+                          },
+                          data: [2015,2016,2017,2018,2019]
+                      },
+                      backgroundColor: '#404a59',
+                      title: [{
+                          text: data.timeline[0],
+                          textAlign: 'center',
+                          left: '63%',
+                          top: '55%',
+                          textStyle: {
+                              fontSize: 100,
+                              color: 'rgba(255, 255, 255, 0.7)'
+                          }
+                      }, {
+                          text: 'Comparison of the Chosen Cities',
+                          left: 'center',
+                          top: 10,
+                          textStyle: {
+                              color: '#aaa',
+                              fontWeight: 'normal',
+                              fontSize: 20
+                          }
+                      }],
+                      tooltip: {
+                          padding: 5,
+                          backgroundColor: '#222',
+                          borderColor: '#777',
+                          borderWidth: 1,
+                          formatter: function (obj) {
+                              var value = obj.value;
+                              return schema[3].text + '：' + value[3] + '<br>'
+                                      + schema[1].text + '：' + value[1] + schema[1].unit + '<br>'
+                                      + schema[0].text + '：' + value[0] + schema[0].unit + '<br>'
+                                      + schema[2].text + '：' + value[2] + schema[2].unit +'<br>';
+                          }
+                      },
+                      grid: {
+                          top: 100,
+                          containLabel: true,
+                          left: 30,
+                          right: '110'
+                      },
+                      xAxis: {
+                          type: 'value',
+                          name: 'Groceries Prize',
+                          //max: 100000,
+                          //min: 300,
+                          nameGap: 35,
+                          nameLocation: 'middle',
+                          nameTextStyle: {
+                              fontSize: 18
+                          },
+                          splitLine: {
+                              show: false
+                          },
+                          axisLine: {
+                              lineStyle: {
+                                  color: '#ccc'
+                              }
+                          },
+                          axisLabel: {
+                              formatter: '{value} $'
+                          }
+                      },
+                      yAxis: {
+                          type: 'value',
+                          name: 'Restaurant_prize',
+                          //max: 100,
+                          nameTextStyle: {
+                              color: '#ccc',
+                              fontSize: 18
+                          },
+                          axisLine: {
+                              lineStyle: {
+                                  color: '#ccc'
+                              }
+                          },
+                          splitLine: {
+                              show: false
+                          },
+                          axisLabel: {
+                              formatter: '{value} $'
+                          }
+                      },
+                      visualMap: [
+                          {
+                              show: false,
+                              dimension: 3,
+                              categories: data.counties,
+                              calculable: true,
+                              precision: 0.1,
+                              textGap: 30,
+                              textStyle: {
+                                  color: '#ccc'
+                              },
+                              inRange: {
+                                  color: (function () {
+                                      var colors = ['#bcd3bb', '#e88f70', '#edc1a5', '#9dc5c8', '#e1e8c8', '#7b7c68', '#e5b5b5', '#f0b489', '#928ea8', '#bda29a'];
+                                      return colors.concat(colors);
+                                  })()
+                              }
+                          }
+                      ],
+                      series: [
+                          {
+                              type: 'scatter',
+                              itemStyle: itemStyle,
+                              data: data.series[0],
+                              symbolSize: function(val) {
+                                  return sizeFunction(val[2]);
+                              }
+                          }
+                      ],
+                      animationDurationUpdate: 1000,
+                      animationEasingUpdate: 'quinticInOut'
+                  },
+                  options: []
+              };
+              myChart.setOption(option);
+
+          });
+          // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+      </script>
+  </body>
+</html>

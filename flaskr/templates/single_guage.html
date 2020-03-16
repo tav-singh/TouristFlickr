@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <!-- route of echarts.js-->
+  </head>
+  <body>
+    <!-- prepare dom for ECharts with size -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // Based on dom，initial echarts
+        var myChart = echarts.init(document.getElementById('main'));
+        //show the safety coefficient for the chosen city
+        // Specifying configuration items and data for the chart
+          var option = {
+                tooltip: {
+                    formatter: '{a} <br/>{b} : {c}%'
+                },
+                toolbox: {
+                    feature: {
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                series: [
+                    {
+                        name: 'Coefficient',
+                        type: 'gauge',
+                        detail: {formatter: '{value}%'},
+                        axisLine: {            // axis
+                                 lineStyle: {       // lineStyle
+                                     color: [[0.2, '#c23531'], [0.8, '#63869e'], [1, '#91c7ae']]
+                                            }
+                                        },
+                        data: [{value: 71, name: 'Safety Coefficient of Barcelona'}]
+                    }
+                ]
+            };
+          // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+      </script>
+  </body>
+</html>

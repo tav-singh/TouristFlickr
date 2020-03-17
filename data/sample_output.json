@@ -1,0 +1,356 @@
+[{
+  "city": "Rio de Janeiro",
+  "country": "Brazil",
+  "latitude": -22.966938,
+  "longitude": -43.173243,
+  "popularity": 699749,
+  "class_tag_overall": {
+    "beach": 16,
+    "city": 2,
+    "nature": 2
+  },
+  "description": [{
+    "url": "http://www.flickr.com/photos/mari-b/265302044/",
+    "cdn_url": "https://farm1.staticflickr.com/94/265302044_4b53f18a5c.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "1437"
+  }, {
+    "url": "http://www.flickr.com/photos/51128736@N00/371061252/",
+    "cdn_url": "https://farm1.staticflickr.com/142/371061252_bd137ab2ce.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "1565"
+  }, {
+    "url": "http://www.flickr.com/photos/chuchogm/2635469944/",
+    "cdn_url": "https://farm4.staticflickr.com/3149/2635469944_ec7e0408d3.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "10230"
+  }, {
+    "url": "http://www.flickr.com/photos/anacrln/2446268942/",
+    "cdn_url": "https://farm3.staticflickr.com/2168/2446268942_5d5d49bff5.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "1338"
+  }, {
+    "url": "http://www.flickr.com/photos/neloqua/12330616/",
+    "cdn_url": "https://farm1.staticflickr.com/7/12330616_72ed8075fa.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "4971"
+  }, {
+    "url": "http://www.flickr.com/photos/neloqua/134067410/",
+    "cdn_url": "https://farm1.staticflickr.com/56/134067410_c1819a4237.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "26019"
+  }, {
+    "url": "http://www.flickr.com/photos/eliezersanchez/166185753/",
+    "cdn_url": "https://farm1.staticflickr.com/73/166185753_d1cb4ce2da.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "2030"
+  }, {
+    "url": "http://www.flickr.com/photos/neloqua/409696380/",
+    "cdn_url": "https://farm1.staticflickr.com/125/409696380_05f5c89a37.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "594286"
+  }, {
+    "url": "http://www.flickr.com/photos/mari-b/317104960/",
+    "cdn_url": "https://farm1.staticflickr.com/112/317104960_aac4bdb1b1.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "9087"
+  }, {
+    "url": "http://www.flickr.com/photos/gijlmar/2071629790/",
+    "cdn_url": "https://farm3.staticflickr.com/2155/2071629790_330cf1df75.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "1198"
+  }, {
+    "url": "http://www.flickr.com/photos/claudiolara/1559345389/",
+    "cdn_url": "https://farm3.staticflickr.com/2310/1559345389_d22bc79448.jpg",
+    "class_tag": "beach-city",
+    "indl_popularity": "4815"
+  }, {
+    "url": "http://www.flickr.com/photos/claudiolara/1559345389/",
+    "cdn_url": "https://farm3.staticflickr.com/2310/1559345389_d22bc79448.jpg",
+    "class_tag": "beach-city",
+    "indl_popularity": "4815"
+  }, {
+    "url": "http://www.flickr.com/photos/tanmanphotographie/2072907015/",
+    "cdn_url": "https://farm3.staticflickr.com/2271/2072907015_91128f6c08.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "3478"
+  }, {
+    "url": "http://www.flickr.com/photos/eliezersanchez/1244635296/",
+    "cdn_url": "https://farm2.staticflickr.com/1070/1244635296_767afea0cc.jpg",
+    "class_tag": "nature-beach",
+    "indl_popularity": "3781"
+  }, {
+    "url": "http://www.flickr.com/photos/eliezersanchez/1244635296/",
+    "cdn_url": "https://farm2.staticflickr.com/1070/1244635296_767afea0cc.jpg",
+    "class_tag": "nature-beach",
+    "indl_popularity": "3781"
+  }, {
+    "url": "http://www.flickr.com/photos/laszlo-photo/281322085/",
+    "cdn_url": "https://farm1.staticflickr.com/96/281322085_922a2b09dd.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "26918"
+  }],
+  "cost": {
+    "2019": {
+      "cost_living_index": "46.49",
+      "groceries_index": "33.55",
+      "restaurant_price_index": "40.27"
+    },
+    "2018": {
+      "cost_living_index": "57.14",
+      "groceries_index": "42.19",
+      "restaurant_price_index": "48.58"
+    },
+    "2017": {
+      "cost_living_index": "58.11",
+      "groceries_index": "44.83",
+      "restaurant_price_index": "51.65"
+    },
+    "2016": {
+      "cost_living_index": "45",
+      "groceries_index": "32.15",
+      "restaurant_price_index": "38.55"
+    },
+    "2015": {
+      "cost_living_index": "61.09",
+      "groceries_index": "45.2",
+      "restaurant_price_index": "53.46"
+    }
+  },
+  "pollution": {
+    "2019": {
+      "pollution_index": "70.29"
+    },
+    "2018": {
+      "pollution_index": "69.93"
+    },
+    "2017": {
+      "pollution_index": "70.41"
+    },
+    "2016": {
+      "pollution_index": "79.1"
+    },
+    "2015": {
+      "pollution_index": "77.64"
+    }
+  },
+  "traffic": {
+    "2019": {
+      "traffic_index": "235.57",
+      "time_index": "52.55",
+      "inefficiency_index": "249.61"
+    },
+    "2018": {
+      "traffic_index": "249.57",
+      "time_index": "54.62",
+      "inefficiency_index": "274.65"
+    },
+    "2017": {
+      "traffic_index": "259.6",
+      "time_index": "56.92",
+      "inefficiency_index": "282.44"
+    },
+    "2016": {
+      "traffic_index": "255.11",
+      "time_index": "57.35",
+      "inefficiency_index": "262.74"
+    },
+    "2015": {
+      "traffic_index": "248.28",
+      "time_index": "56.05",
+      "inefficiency_index": "281.82"
+    }
+  },
+  "crime": {
+    "2019": {
+      "crime_index": "77.98",
+      "safety_index": "22.02"
+    },
+    "2018": {
+      "crime_index": "76.98",
+      "safety_index": "23.02"
+    },
+    "2017": {
+      "crime_index": "77.87",
+      "safety_index": "22.13"
+    },
+    "2016": {
+      "crime_index": "77.19",
+      "safety_index": "22.81"
+    },
+    "2015": {
+      "crime_index": "72.64",
+      "safety_index": "27.36"
+    }
+  }
+}, {
+  "city": "Honolulu",
+  "country": "United States",
+  "latitude": 21.279937,
+  "longitude": -157.836198,
+  "popularity": 166581,
+  "class_tag_overall": {
+    "beach": 14,
+    "city": 2
+  },
+  "description": [{
+    "url": "http://www.flickr.com/photos/mandolinn/222360303/",
+    "cdn_url": "https://farm1.staticflickr.com/83/222360303_4e21b5c26a.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "14275"
+  }, {
+    "url": "http://www.flickr.com/photos/seasideshooter/1584693248/",
+    "cdn_url": "https://farm3.staticflickr.com/2376/1584693248_a69450efa4.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "488"
+  }, {
+    "url": "http://www.flickr.com/photos/ruthann/1394550722/",
+    "cdn_url": "https://farm2.staticflickr.com/1195/1394550722_00afbb278a.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "6325"
+  }, {
+    "url": "http://www.flickr.com/photos/briancrissie/2374702215/",
+    "cdn_url": "https://farm3.staticflickr.com/2384/2374702215_b2116f042e.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "759"
+  }, {
+    "url": "http://www.flickr.com/photos/jimfrazier/299895459/",
+    "cdn_url": "https://farm1.staticflickr.com/112/299895459_600e08a5b9.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "4777"
+  }, {
+    "url": "http://www.flickr.com/photos/lenlangevin/2219826060/",
+    "cdn_url": "https://farm3.staticflickr.com/2185/2219826060_77ed439bed.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "2442"
+  }, {
+    "url": "http://www.flickr.com/photos/jimfrazier/355888890/",
+    "cdn_url": "https://farm1.staticflickr.com/149/355888890_f02350426b.jpg",
+    "class_tag": "beach-city",
+    "indl_popularity": "399"
+  }, {
+    "url": "http://www.flickr.com/photos/jimfrazier/355888890/",
+    "cdn_url": "https://farm1.staticflickr.com/149/355888890_f02350426b.jpg",
+    "class_tag": "beach-city",
+    "indl_popularity": "399"
+  }, {
+    "url": "http://www.flickr.com/photos/casch/375275440/",
+    "cdn_url": "https://farm1.staticflickr.com/187/375275440_600fd03476.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "102357"
+  }, {
+    "url": "http://www.flickr.com/photos/eyetwist/363786675/",
+    "cdn_url": "https://farm1.staticflickr.com/147/363786675_6c4d62f13f.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "19438"
+  }, {
+    "url": "http://www.flickr.com/photos/eyetwist/498465102/",
+    "cdn_url": "https://farm1.staticflickr.com/193/498465102_e126f7c471.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "2447"
+  }, {
+    "url": "http://www.flickr.com/photos/ruthann/2271776651/",
+    "cdn_url": "https://farm3.staticflickr.com/2305/2271776651_5636bb2c77.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "1279"
+  }, {
+    "url": "http://www.flickr.com/photos/cateyes/98245037/",
+    "cdn_url": "https://farm1.staticflickr.com/25/98245037_2bf92d401a.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "8111"
+  }, {
+    "url": "http://www.flickr.com/photos/ruthann/2117891357/",
+    "cdn_url": "https://farm3.staticflickr.com/2051/2117891357_e1f79bff1b.jpg",
+    "class_tag": "beach",
+    "indl_popularity": "3085"
+  }],
+  "cost": {
+    "2019": {
+      "cost_living_index": "95.67",
+      "groceries_index": "106.64",
+      "restaurant_price_index": "85.75"
+    },
+    "2018": {
+      "cost_living_index": "94.15",
+      "groceries_index": "104.69",
+      "restaurant_price_index": "82.86"
+    },
+    "2017": {
+      "cost_living_index": "99.54",
+      "groceries_index": "106.51",
+      "restaurant_price_index": "87.51"
+    },
+    "2016": {
+      "cost_living_index": "99.72",
+      "groceries_index": "115",
+      "restaurant_price_index": "84.75"
+    },
+    "2015": {
+      "cost_living_index": "104.23",
+      "groceries_index": "119.41",
+      "restaurant_price_index": "85.11"
+    }
+  },
+  "pollution": {
+    "2019": {
+      "pollution_index": "36.85"
+    },
+    "2018": {
+      "pollution_index": "41.5"
+    },
+    "2017": {
+      "pollution_index": "42.9"
+    },
+    "2016": {
+      "pollution_index": "45.17"
+    },
+    "2015": {
+      "pollution_index": "27.5"
+    }
+  },
+  "traffic": {
+    "2019": {
+      "traffic_index": "209.52",
+      "time_index": "42.52",
+      "inefficiency_index": "225.2"
+    },
+    "2018": {
+      "traffic_index": "204.79",
+      "time_index": "42",
+      "inefficiency_index": "220.57"
+    },
+    "2017": {
+      "traffic_index": "181.87",
+      "time_index": "39.36",
+      "inefficiency_index": "138.37"
+    },
+    "2016": {
+      "traffic_index": "172.53",
+      "time_index": "37.4",
+      "inefficiency_index": "128.9"
+    },
+    "2015": {
+      "traffic_index": "200.65",
+      "time_index": "40.83",
+      "inefficiency_index": "154.41"
+    }
+  },
+  "crime": {
+    "2019": {
+      "crime_index": "43.78",
+      "safety_index": "56.22"
+    },
+    "2018": {
+      "crime_index": "41.73",
+      "safety_index": "58.27"
+    },
+    "2017": {
+      "crime_index": "36.38",
+      "safety_index": "63.62"
+    },
+    "2015": {
+      "crime_index": "35.57",
+      "safety_index": "64.43"
+    }
+  }
+}]

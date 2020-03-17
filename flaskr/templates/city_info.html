@@ -8,8 +8,21 @@
         </div>
     </div>
 </div>
-<div id="my_dataviz" style="width: 700px;height:500px; ></div>
+<div id="my_dataviz" style="width: 700px;height:500px;" ></div>
 
+<script>
+
+    $(() => {
+        console.log("I appeard")
+    })
+
+    $("#close-city").click(() => {
+        console.log("click")
+        d3.select("#one-city-views").style("display", "none")
+        cityOpened = false
+
+    })
+</script>
 <script src="https://d3js.org/d3.v4.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
@@ -54,14 +67,4 @@
     };
 
       myChart.setOption(option);
-</script>
-
-<script>
-
-    $("#close-city").click(() => {
-            console.log("click")
-                d3.select("#one-city-views").style("display", "none")
-                cityOpened = false
-
-        })
 </script>

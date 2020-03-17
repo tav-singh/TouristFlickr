@@ -51,7 +51,7 @@ svg rect {
 .tagContainer {
     position: absolute;
     left: 50px;
-    top: 10%;
+    bottom: 50px;
 }
 
 .tagContainer > div {

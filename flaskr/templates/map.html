@@ -52,9 +52,9 @@
 
         $(() => {
             // console.log($('#result').data().result)
-            let result = $('#result').data().result.replace(/'/g, '"')
-            console.log( JSON.parse(result) )
-            console.log( $('#result').data().pref )
+            // let result = $('#result').data().result
+            // console.log( (result) )
+            // console.log( $('#result').data().pref )
 
             $('.tags').each(function(i, obj) {
                 if ($(this)[0].id !== "t-"+$('#result').data().pref)
@@ -78,6 +78,7 @@
         }) 
 
     </script>
+    
     <script>
         tagColors = {
             nightlife: "1abc9c",
@@ -118,7 +119,7 @@
                 .transform;
             countriesGroup
                 .attr("transform", "translate(" + [t.x, t.y] + ")scale(" + t.k + ")");
-        }
+        }   
 
         // Define map zoom behaviour
         var zoom = d3
@@ -219,14 +220,15 @@
 
 
 
-        var result = JSON.parse('{{ result | tojson | safe}}');
+        // var result = '{{ result }}'
         // document.getElementById('print').innerHTML = result[0].longitude+','+result[0].latitude;
         // Create data for donut:
-        var data = result;
+        var data = $('#result').data().result;
+        console.log(data)
         
         // get map data
         d3.json(
-            "https://raw.githubusercontent.com/andybarefoot/andybarefoot-www/master/maps/mapdata/custom50.json",
+            "../static/json/custom50.json",
             function (json) {
                 //Bind data and create one path per GeoJSON feature
                 countriesGroup = svg.append("g").attr("id", "map");
@@ -266,7 +268,7 @@
                     });
                        
 
-                var cityOpened = false
+                // var cityOpened = false
                 
                 cities = countriesGroup
                   .selectAll("myCircles")
@@ -286,7 +288,7 @@
                             $.ajax({
                             url: "/city_info",
                             type: "get",
-                            data: {photo_id: val.photo_id},
+                            data: {city: val.city},
                             success: function(response) {
                                 console.log("success")
                                 console.log(response)
@@ -299,11 +301,6 @@
 
                             d3.select("#one-city-views").style("display", "block")
                             cityOpened = true
-                        // }
-                        
-                        // if (d3.select("#one-city-views").style("display") == "none") {
-                        // } else{
-                        //     d3.select("#one-city-views").style("display", "none");
                         // }
                     });
 

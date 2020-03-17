@@ -34,9 +34,11 @@ def query_db(query, num_ele = 20):
     # print(rows[0])
     return rows[:num_ele]
 
-def get_city_info(photo_id):
-    query = "select *, photos.id as photo_id from photos inner join costs_combined on photos.cost_id=costs_combined.id where photo_id = ?"
-    query_response = query_db(query, (photo_id,), 1)
+def get_city_info(city):
+    query = "select *, photos_nus.id as photo_id from photos_nus inner join cost_view on photos_nus.city=cost_view.city where cost_view.city like '%{}%'" 
+    query = query.format(city)
+    print(query, file=sys.stderr)
+    query_response = query_db(query, 1)
     return query_response
 
 def create_json(photos_list):
@@ -180,7 +182,7 @@ def create_app(test_config=None):
 
     @app.route('/city_info')
     def city_info():
-        query = request.args.get('photo_id')
+        query = request.args.get('city')
         data = get_city_info(query)
         print(data[0], file=sys.stderr)
         html = render_template('city_info.html', data=data[0])

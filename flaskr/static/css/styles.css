@@ -20,7 +20,7 @@ svg rect {
 }
 
 .country {
-    fill: #d0d0d0;
+    fill: rgb(241,241,242);
     /* country colour */
     stroke: #2A2C39;
     /* country border colour */
@@ -39,7 +39,7 @@ svg rect {
 }
 
 .countryName {
-    fill: #FFFAFF;
+    fill: #00000090;
     /* country label text colour */
 }
 
@@ -245,29 +245,29 @@ svg rect {
 }
 
 .tileCent {
-    background-position: center; /* Center the image */
+    background-position: center !important; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover !important;
 }
 
 .img1 {
     background-size: cover !important;
-    background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRWT9f_cPcQNGWrBN6-i_9qDJRa0pfyDIWaJgo3V3K_fs-3qIlY)
+    background: url(https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)
 }
 .img2 {
-    background: url(https://images.unsplash.com/photo-1546006508-5bd647796a4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)
+    background: url(https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1413&q=80)
 }
 .img3 {
     background: url(https://images.unsplash.com/photo-1538013532668-5ccc57ce83eb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)
 }
 .img4 {
-    background: url(https://images.unsplash.com/photo-1544213456-bc37cb97df74?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)
+    background: url(https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)
 }
 .img5 {
-    background: url(https://images.unsplash.com/photo-1481889617387-82a8f2413b6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80)
+    background: url(https://images.unsplash.com/photo-1439066290691-510066268af5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1266&q=80)
 }
 .img6 {
-    background: url(https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)
+    background: url(https://images.unsplash.com/photo-1468877294001-94aef5ebfa1e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)
 }
 
 .prefNext {
@@ -321,6 +321,22 @@ svg rect {
   {
       fill: #464A4F;
   }
+
+  .numberPicked {
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        justify-content: center;
+        align-items: center;
+        left: 10px;
+        top: 10px;
+        position: absolute;
+        border: 2px solid white;
+        color: white;
+        text-align: center;
+        display: none;
+    }   
+
 @media screen and (max-width: 1800px) {
     /* .modalStart {
         height: 90vh;

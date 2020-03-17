@@ -199,9 +199,9 @@ def create_app(test_config=None):
     def user_pref():
         # print(request.args.get('pref'), file=sys.stderr)
         pref = request.args.get('pref')
-        # print(pref, file=sys.stderr)
-        result = json.dumps(get_top_elements_from_db([pref]))
-        print(result)
+        print(pref, file=sys.stderr)
+        result = json.dumps(get_top_elements_from_db(pref))
+        print(result, file=sys.stderr)
         return render_template('map.html', result=result, pref=pref)
 
     @app.route('/city_info')

@@ -56,6 +56,7 @@ def create_json(photos_list):
         description_list = []
         url_list = photos['url'].split(',')
         cdn_url_list = photos['cdn_url'].split(',')
+        indl_popularity_list = photos['indl_popularity'].split(',')
         print(photos['url'])
         print(url_list)
         class_tags_list = photos['class_tag'].split(',')
@@ -64,6 +65,7 @@ def create_json(photos_list):
             description_dict["url"] = url_list[index]
             description_dict["cdn_url"] = cdn_url_list[index]
             description_dict["class_tag"] = class_tags_list[index]
+            description_dict["indl_popularity"] = indl_popularity_list[index]
             # print(class_tags_list[index].split("-"))
             for class_tag in class_tags_list[index].split("-"):
                 # print(class_tag)
@@ -74,18 +76,33 @@ def create_json(photos_list):
             class_tag_overall.add(class_tags_list[index])
             description_list.append(description_dict)
         a["description"] = description_list
-        year_list = photos["year"].split(",")
-        groceries_index_list = photos["groceries_index"].split(",")
-        restaurant_price_index_list = photos["restaurant_price_index"].split(",")
-        cost_living_index_list = photos["cost_living_index"].split(",")
-        cost_dict = {}
-        for year_index in range(len(year_list)):
-            year = year_list[year_index]
-            cost_dict[year] = {}
-            cost_dict[year]["groceries_index"] = groceries_index_list[year_index]
-            cost_dict[year]["restaurant_price_index"] = restaurant_price_index_list[year_index]
-            cost_dict[year]["cost_living_index"] = cost_living_index_list[year_index]
-        a["cost"] = copy.deepcopy(cost_dict)
+        for view in info_params:
+            view_columns = info_params[view]
+            year_list = photos[view + "_year"].split(",")
+            view_columns_list = []
+            for column_names in view_columns:
+                view_columns_list.append(photos[column_names].split(","))
+            view_dict = {}
+            for year_index in range(len(year_list)):
+                year = year_list[year_index]
+                view_dict[year] = {}
+                for i in range(len(view_columns_list)):
+                    view_dict[year][view_columns[i]] = view_columns_list[i][year_index]
+
+            a[view] = copy.deepcopy(view_dict)
+
+        # cost_year_list = photos["year"].split(",")
+        # groceries_index_list = photos["groceries_index"].split(",")
+        # restaurant_price_index_list = photos["restaurant_price_index"].split(",")
+        # cost_living_index_list = photos["cost_living_index"].split(",")
+        # cost_dict = {}
+        # for year_index in range(len(cost_year_list)):
+        #     year = year_list[year_index]
+        #     cost_dict[year] = {}
+        #     cost_dict[year]["groceries_index"] = groceries_index_list[year_index]
+        #     cost_dict[year]["restaurant_price_index"] = restaurant_price_index_list[year_index]
+        #     cost_dict[year]["cost_living_index"] = cost_living_index_list[year_index]
+        # a["cost"] = copy.deepcopy(cost_dict)
 
 
         # for year in LIVING_INDEX_YEARS:
@@ -116,10 +133,13 @@ def get_top_elements_from_db(pref):
     #     inner_query.format()
     query = "select * from (" \
             "select city, country, latitude, longitude, sum(popularity) as popularity, group_concat(url) as url, " \
-            "group_concat(cdn_url) as cdn_url, group_concat(class_tag) as class_tag " \
-            "from (" + inner_query + ")" + " group by city, country" \
-            ") as p inner join  [cost_view] c on p.city = c.city where p.country = c.country " \
-                                           "order by p.popularity desc"
+            "group_concat(cdn_url) as cdn_url, group_concat(class_tag) as class_tag, group_concat(popularity) as " \
+            "indl_popularity from (" + inner_query + ")" + " group by city, country" \
+            ") as p inner join  [cost_view] c on p.city = c.city inner join [pollution_view] po on c.city = po.city " \
+                                                           "inner join [crime_view] cr on cr.city = po.city inner join " \
+                                                           "[traffic_view] t on t.city = cr.city where " \
+                                                           "p.country = c.country and po.country = c.country and cr.country = po.country " \
+                                                           "and t.country = cr.country order by p.popularity desc"
     print(query)
     # print(tuple(pref))
     and_query_response = query_db(query, NUM_ELE)
@@ -129,8 +149,12 @@ def get_top_elements_from_db(pref):
         query = "select * from (" \
                 "select city, country, latitude, longitude, sum(popularity) as popularity, group_concat(url) as " \
                 "url, group_concat(class_tag) as class_tag from (" + "select * from photos_nus where class_tag like '%?%'" + \
-                ")" + " group by city,country) as p inner join [cost_view] c on p.city = costs.city where" \
-                      " p.country = costs.country order by p.popularity desc"
+                ")" + " group by city,country) as p inner join  [cost_view] c on p.city = c.city inner join [pollution_view] po on c.city = po.city " \
+                      "inner join [crime_view] cr on cr.city = po.city inner join " \
+                      "[traffic_view] t on t.city = cr.city where " \
+                      "p.country = c.country and po.country = c.country and cr.country = po.country " \
+                      "and t.country = cr.country " \
+                      "order by p.popularity desc"
         for ele in pref:
             query_response = query_db(query.format(ele), int(ele_remaining/total_pref))
             # print(query_response)

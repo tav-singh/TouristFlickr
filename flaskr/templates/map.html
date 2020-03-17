@@ -325,11 +325,13 @@
                     .on("click", function () {
                     // if (!cityOpened) {
                         val = de
+                        console.log("sending...")
+                        console.log(val)
                         // console.log(val)
                         $.ajax({
                         url: "/city_info",
                         type: "get",
-                        data: {city: val.city},
+                        data: {data: JSON.stringify(val)},
                         success: function(response) {
                             console.log("success")
                             console.log(response)

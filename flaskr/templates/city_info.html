@@ -10,14 +10,16 @@
 </div>
 <div id="my_dataviz" style="width: 700px;height:500px;" ></div>
 
+<meta id="city" data-data="{{data}}" data-raw="{{raw}}">
 <script>
 
     $(() => {
-        console.log("I appeard")
+        let cityData = $('#city').data().raw
+        console.log("city info", cityData)
     })
 
     $("#close-city").click(() => {
-        console.log("click")
+        console.log("close")
         d3.select("#one-city-views").style("display", "none")
         cityOpened = false
 

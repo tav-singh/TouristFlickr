@@ -204,12 +204,13 @@ def create_app(test_config=None):
         print(result, file=sys.stderr)
         return render_template('map.html', result=result, pref=pref)
 
-    @app.route('/city_info')
+    @app.route('/city_info', )
     def city_info():
-        query = request.args.get('city')
-        data = get_city_info(query)
-        print(data[0], file=sys.stderr)
-        html = render_template('city_info.html', data=data[0])
+        query = request.args.get('data')
+        query = json.loads(query)
+        # data = get_city_info(query)
+        # print(data[0], file=sys.stderr)
+        html = render_template('city_info.html', data=query, raw=json.dumps(query))
         return jsonify({'results':html})
 
     from . import db

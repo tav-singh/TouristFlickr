@@ -25,6 +25,7 @@
             <div id="t-architecture" class="sfa tags tagDisabled"><p>Architecture</p></div>
             <div id="t-lake" class="car tags tagDisabled"><p>Lake</p></div>
             <div id="t-mountains" class="brp tags tagDisabled"><p>Mountains</p></div>
+            <div id="t-go" class="tags tag-go"><p>Go &rarr;</p></div>
             <!-- <div id="print" style="color: white;"></div> //test if result is sent to html-->
         </div>
         <div id="map-holder"></div>
@@ -57,7 +58,7 @@
             // console.log( $('#result').data().pref )
 
             let tags = $('#result').data().pref.split(",")
-            console.log(tags)
+            // console.log(tags)
 
             $('.tags').each(function(i, obj) {
                 for (tag of tags) {
@@ -85,6 +86,7 @@
     </script>
     
     <script>
+        var tags = $('#result').data().pref.split(",")
         tagColors = {
             city: "1abc9c",
             nature: "d35400",
@@ -285,9 +287,13 @@
                 for ( idx in data) {
 
                     // set the color scale
-                    console.log(data[idx])
+                    // console.log(data[idx])
                     let clso = data[idx].class_tag_overall
-                    var data_pie = {city: clso.city, nature: clso.nature, beach:clso.beach, architecture: clso.architecture, lake: clso.lake, mountain: clso.mountain}
+                    var data_pie = {city: 0, nature: 0, beach: 0, architecture: 0, lake: 0, mountain: 0}
+                    for (tag of tags) {
+                        if(clso[tag]) data_pie[tag] = clso[tag]
+                    }
+
                     var color = d3.scaleOrdinal()
                     .domain(data_pie)
                     .range(["#1abc9c", "#d35400", "#3498db", "#f1c40f", "#e67e22", "#2980b9"])
@@ -297,7 +303,8 @@
                     var data_ready = pie(d3.entries(data_pie))
 
                     let de = data[idx]    
-                    countriesGroup
+
+                    var donut = countriesGroup
                     .selectAll('donuts')
                     .data(data_ready)
                     .enter()
@@ -342,8 +349,44 @@
                     .on("mouseout", function (d, i) {
                         d3.select(this).style("cursor", "default"); 
                     })
-                }
 
+                    // let group = countriesGroup
+                    //             .append("g")
+                    //             .attr("transform", function(d) {return "translate(" + projection([de.longitude, de.latitude])[0] +"," + projection([de.longitude, de.latitude])[1] + ")" })
+
+                    var defs = countriesGroup.append('svg:defs')
+
+                    defs.append("svg:pattern")
+                        .attr("id", "img-pop" + idx)
+                        .attr("width", "100%") 
+                        .attr("height", "100%")
+                        .attr("patternUnits", "userSpaceOnUse")
+                        .append("svg:image")
+                        .attr("xlink:href", de.description[1].cdn_url)
+                        .attr("width", 100)
+                        .attr("height", 100)
+                        .attr("x", 0)
+                        .attr("y", 0);
+
+                    var circleImg = countriesGroup.append("rect")
+                        .attr("transform", function(d) {return "translate(" + projection([de.longitude - 6, de.latitude + 15])[0] +"," + projection([de.longitude - 6, de.latitude + 15])[1] + ")" })
+                        .attr("width", 100)
+                        .attr("height", 100)
+                        // .attr("r", 100 / 2)
+                        .attr("class", "image-pop")
+                        // .style("fill", "#fff")
+                        .style("fill", "url(#img-pop" + idx + ")");
+
+
+                    // countriesGroup
+                    // .append("svg:image")
+                    // .attr("xlink:href", de.description[0].cdn_url)
+                    // .attr("transform", function(d) {return "translate(" + projection([de.longitude, de.latitude])[0] +"," + projection([de.longitude, de.latitude])[1] + ")" })
+                    // .attr("class", "image-pop")
+                    // .attr("x", "200")
+                    //end of for point gen.
+                }
+                
                 // Add a label group to each feature/country. This will contain the country name and a background rectangle
                 // Use CSS to have class "countryLabel" initially hidden
                 countryLabels = countriesGroup

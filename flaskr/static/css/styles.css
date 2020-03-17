@@ -20,7 +20,7 @@ svg rect {
 }
 
 .country {
-    fill: rgb(241,241,242);
+    fill: rgb(241, 241, 242);
     /* country colour */
     stroke: #2A2C39;
     /* country border colour */
@@ -54,10 +54,10 @@ svg rect {
     bottom: 50px;
 }
 
-.tagContainer > div {
+.tagContainer>div {
     /* background-color: white; */
     padding: 5px 10px;
-    margin-bottom:15px;
+    margin-bottom: 15px;
     cursor: pointer;
     border-radius: 2px;
     display: flex;
@@ -67,9 +67,13 @@ svg rect {
     background-color: white;
 }
 
-.tagContainer > div > p {
+.tagContainer>div>p {
     color: #222222;
-    
+
+}
+
+.tag-go {
+    border-radius: 10px !important;
 }
 
 .turq {
@@ -79,30 +83,35 @@ svg rect {
 .eme {
     box-shadow: 0px 5px 0px 0px #d35400;
 }
+
 .ptr {
     box-shadow: 0px 5px 0px 0px #3498db;
 }
+
 .sfa {
     box-shadow: 0px 5px 0px 0px #f1c40f;
 }
+
 .car {
     box-shadow: 0px 5px 0px 0px #e67e22;
 }
+
 .brp {
     box-shadow: 0px 5px 0px 0px #2980b9;
 }
 
-.tagContainer > div > p {
+.tagContainer>div>p {
     margin: 0;
-    
+
 }
 
 .tagDisabled {
     background-color: #b2bec3 !important;
 }
-.tagDisabled > p{
+
+.tagDisabled>p {
     color: #636e72 !important;
-    
+
 }
 
 
@@ -113,12 +122,13 @@ svg rect {
     background: #00000090;
     z-index: 10;
 }
+
 .overlay {
     position: absolute;
     width: 40%;
     height: 100%;
     z-index: 10;
-    right:0;
+    right: 0;
     background-color: #f3f3f3;
 }
 
@@ -142,27 +152,25 @@ svg rect {
     height: 300px;
 }
 
-.oBg > div {
+.oBg>div {
     height: 100%;
     width: 100%;
     background-color: #00000030;
     border-radius: 5px;
     position: relative;
     background-image:
-        linear-gradient(
-        to top,
-        #000000,
-        #00000030 30%
-        );
+        linear-gradient(to top,
+            #000000,
+            #00000030 30%);
 }
 
-.oBg > div > div {
+.oBg>div>div {
     position: absolute;
     bottom: 10px;
     left: 10px;
 }
 
-.oBg > div > div > p {
+.oBg>div>div>p {
     margin: 0;
     color: #ffffff;
     font-size: 1.5em;
@@ -178,13 +186,13 @@ svg rect {
     transform: translate(-50%, -50%);
     border-radius: 5px;
     /* display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; */
+justify-content: center;
+align-items: center;
+flex-direction: column; */
 }
 
 .modalStart h2 {
-    color:  #00000090;
+    color: #00000090;
     text-align: center;
 }
 
@@ -204,33 +212,31 @@ svg rect {
     transform: translate(-50%, -50%);
 }
 
-.prefCon > div {
+.prefCon>div {
     margin: 8px;
     height: 200px;
     width: 350px;
     border-radius: 5px;
 }
 
-.prefCon > div > div {
+.prefCon>div>div {
     height: 100%;
     width: 100%;
     background-color: #00000030;
     border-radius: 5px;
     background-image:
-        linear-gradient(
-        to top,
-        #00000090,
-        #00000030 20%
-        );
+        linear-gradient(to top,
+            #00000090,
+            #00000030 20%);
     position: relative;
     cursor: pointer;
 }
 
-.prefCon > div > div:hover {
+.prefCon>div>div:hover {
     background-color: #00000050;
 }
 
-.prefCon > div > div > p {
+.prefCon>div>div>p {
     margin: 0;
     position: absolute;
     bottom: 10px;
@@ -241,12 +247,14 @@ svg rect {
 
 .picked {
     background-color: #000000a6 !important;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .tileCent {
-    background-position: center !important; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
+    background-position: center !important;
+    /* Center the image */
+    background-repeat: no-repeat;
+    /* Do not repeat the image */
     background-size: cover !important;
 }
 
@@ -254,18 +262,23 @@ svg rect {
     background-size: cover !important;
     background: url(https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)
 }
+
 .img2 {
     background: url(https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1413&q=80)
 }
+
 .img3 {
     background: url(https://images.unsplash.com/photo-1538013532668-5ccc57ce83eb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)
 }
+
 .img4 {
     background: url(https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)
 }
+
 .img5 {
     background: url(https://images.unsplash.com/photo-1439066290691-510066268af5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1266&q=80)
 }
+
 .img6 {
     background: url(https://images.unsplash.com/photo-1468877294001-94aef5ebfa1e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)
 }
@@ -301,44 +314,49 @@ svg rect {
     background-color: #1e3799;
     border: none;
     box-shadow: 0px 5px 0px 0px #4a69bd;
-  }
+}
 
-  .chart-gauge
-  {
+.chart-gauge {
     width: 400px;
-    margin: 100px auto  
-   } 
-  .chart-filled
-  {
-      fill: steelblue;
-  }
-  .chart-empty
-  {
-      fill: #dedede;
-  }
+    margin: 100px auto
+}
 
-  .needle, .needle-center
-  {
-      fill: #464A4F;
-  }
+.chart-filled {
+    fill: steelblue;
+}
 
-  .numberPicked {
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        justify-content: center;
-        align-items: center;
-        left: 10px;
-        top: 10px;
-        position: absolute;
-        border: 2px solid white;
-        color: white;
-        text-align: center;
-        display: none;
-    }   
+.chart-empty {
+    fill: #dedede;
+}
+
+.needle,
+.needle-center {
+    fill: #464A4F;
+}
+
+.numberPicked {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    left: 10px;
+    top: 10px;
+    position: absolute;
+    border: 2px solid white;
+    color: white;
+    text-align: center;
+    display: none;
+}
+
+.image-pop {
+    background: white;
+}
+
+
 
 @media screen and (max-width: 1800px) {
     /* .modalStart {
-        height: 90vh;
-    } */
+    height: 90vh;
+} */
 }

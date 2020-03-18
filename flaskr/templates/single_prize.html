@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <script src="D:\Github\incubator-echarts-master\dist\echarts.js"></script>
+      <!-- route of echarts.js-->
+  </head>
+  <body>
+    <!-- prepare dom for ECharts with size -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // Based on dom，initial echarts
+        var myChart = echarts.init(document.getElementById('main'));
+        //show the safety coefficient for the chosen city
+        // Specifying configuration items and data for the chart
+          var option = {
+            title: {
+            left: 'left',
+            text: 'Prize Info',
+            },
+            angleAxis: {
+            },
+            radiusAxis: {
+                type: 'category',
+                data: ['2015', '2016', '2017', '2018', '2019'],
+                z: 10
+            },
+            polar: {
+            },
+            series: [{
+                type: 'bar',
+                data: [45.2, 32.15, 44.83, 42.19, 33.55],//Input 5 years' groceries_index here
+                coordinateSystem: 'polar',
+                name: 'Groceries_prize',
+                stack: 'a'
+            }, {
+                type: 'bar',
+                data: [53.46, 38.55, 51.65, 48.58, 40.27],
+                coordinateSystem: 'polar',
+                name: 'Restaurant_prize',
+                stack: 'a'
+            }, {
+                type: 'bar',
+                data: [61.09, 45, 58.11, 57.14, 46.49],
+                coordinateSystem: 'polar',
+                name: 'Cost_living',
+                stack: 'a'
+            }],
+            tooltip: {
+                show: true 
+            },
+            legend: {
+                show: true,
+                data: ['Groceries_prize', 'Restaurant_prize', 'Cost_living']
+            }
+        };
+
+        myChart.setOption(option);
+      </script>
+  </body>
+</html>

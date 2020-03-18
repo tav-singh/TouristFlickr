@@ -2,93 +2,23 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="../static/js/lightslider.js"></script>
 
-<style>
-    ul{
-        list-style: none outside none;
-        padding-left: 0;
-        margin: 0;
-    }
-    .imgrid .item{
-        margin-bottom: 0;
-    }
-    .imgrid{
-        width: 90%;
-        margin-left: 50px;
-        /* margin-top: 0px; */
-    }
-</style>
-
-<script>
-    $(document).ready(function() {
-       $("#content-slider").lightSlider({
-           loop:true,
-           keyPress:true
-       });
-       $('#image-gallery').lightSlider({
-           gallery:true,
-           item:1,
-           thumbItem:9,
-           slideMargin: 0,
-           speed:500,
-           auto:true,
-           loop:true,
-           onSliderLoad: function() {
-               $('#image-gallery').removeClass('cS-hidden');
-           }  
-       });
-   });
-</script>
 
 <div id="close-city">x</div>
 <div style="margin-top: 10px;">
-        <div class="imgrid">
-                <div class="item">
-                    <div class="clearfix" style="max-width: 500px;">
-                        <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-                            <li data-thumb={{data.description[0].cdn_url}}>
-                                <img src={{data.description[0].cdn_url}} />
-                                 </li>
-                            <li data-thumb="{{data.description[1].cdn_url}}"> 
-                                <img src="{{data.description[1].cdn_url}}" />
-                                 </li>
-                            <li data-thumb="{{data.description[2].cdn_url}}"> 
-                                <img src="{{data.description[2].cdn_url}}" />
-                            </li>
-                            <li data-thumb="{{data.description[3].cdn_url}}"> 
-                                <img src="{{data.description[3].cdn_url}}" />
-                            </li>
-                            <li data-thumb="{{data.description[4].cdn_url}}"> 
-                                <img src="{{data.description[4].cdn_url}}" />
-                            </li>
-                            <li data-thumb="{{data.description[5].cdn_url}}"> 
-                                <img src="{{data.description[5].cdn_url}}" />
-                            </li>
-                            <li data-thumb="{{data.description[6].cdn_url}}"> 
-                                <img src="{{data.description[6].cdn_url}}" />
-                            </li>
-                            <li data-thumb="{{data.description[7].cdn_url}}"> 
-                                <img src="{{data.description[7].cdn_url}}" />
-                            </li>
-                            <li data-thumb="{{data.description[8].cdn_url}}"> 
-                                <img src="{{data.description[8].cdn_url}}" />
-                            </li>
-                            <li data-thumb="{{data.description[9].cdn_url}}"> 
-                                <img src="{{data.description[9].cdn_url}}" />
-                            </li>
-                            <li data-thumb="{{data.description[10].cdn_url}}"> 
-                                <img src="{{data.description[10].cdn_url}}" />
-                            </li>
-                        </ul>
-                    </div>
-                </div>
         
-            </div>
             <div style="margin-left: 50px;">
-            <p style="font-size: 1em; margin:0;">{{data.country}}</p>
+            
             <p style="font-size: 1.5em; margin:0;">{{data.city}}</p>
-        </div>
+            <p style="font-size: 1em; margin:0;">{{data.country}}</p>
+
+            </div>
 </div>
-<div id="my_dataviz" style="width: 700px;height:500px;" ></div>
+<div id="my_dataviz" style="width: 500px;height:300px;" ></div>
+
+<div style=" height: 400px; overflow: scroll;">
+    <section id="photos"></section>
+</div>
+
 
 <meta id="city" data-data="{{data}}" data-raw="{{raw}}">
 <script>
@@ -119,6 +49,8 @@
 
 <script type="text/javascript">
 
+
+
     // EXAMPLE OF SINGLE GUAGE
     var myChart = echarts.init(document.getElementById('my_dataviz'));
 
@@ -138,7 +70,7 @@
                 detail: {formatter: '{value}%'},
                 axisLine: {            // 坐标轴线
                          lineStyle: {       // 属性lineStyle控制线条样式
-                             color: [[0.2, '#c23531'], [0.8, '#63869e'], [1, '#91c7ae']]
+                             color: [[0.2, 'red'], [0.8, 'blue'], [1, 'green']]
                                     }
                                 },
                 data: [{value: 71, name: 'Safety Coefficient'}]
@@ -147,4 +79,14 @@
     };
 
       myChart.setOption(option);
+
+    var data=JSON.parse('{{data|tojson|safe}}');
+    var allImages = "";
+     
+    for (var i = 0; i < Object.keys(data.description).length; i++) {
+     
+      allImages += "<img src=' "+data.description[i].cdn_url+" '/>";
+    }
+
+    $('#photos').append(allImages);
 </script>

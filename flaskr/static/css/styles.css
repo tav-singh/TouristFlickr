@@ -136,7 +136,7 @@ svg rect {
     position: absolute;
     z-index: 15;
     right: 0;
-    color: white;
+    color: black;
     height: 30px;
     width: 30px;
     font-size: 30px;
@@ -145,36 +145,6 @@ svg rect {
     cursor: pointer;
 }
 
-.oBg {
-    /*background: url("./ams.jpg");*/
-    background-size: cover;
-    width: 100%;
-    height: 300px;
-}
-
-.oBg>div {
-    height: 100%;
-    width: 100%;
-    /*background-color: #00000030;*/
-    border-radius: 5px;
-    position: relative;
-    /*background-image:
-        linear-gradient(to top,
-            #000000,
-            #00000030 30%);*/
-}
-
-.oBg>div>div {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-}
-
-.oBg>div>div>p {
-    margin: 0;
-    /*color: #ffffff;*/
-    font-size: 1.5em;
-}
 
 .modalStart {
     /* height: 65vh; */

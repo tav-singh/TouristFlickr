@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <!-- route of echarts.js-->
+  </head>
+  <body>
+    <!-- prepare dom for ECharts with size -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // Based on dom，initial echarts
+        var myChart = echarts.init(document.getElementById('main'));
+        //show the safety coefficient for the chosen city
+        // Specifying configuration items and data for the chart
+          var option = {
+              title: {
+                  left: 'center',
+                  text: 'Coefficient of Pollution',
+              },
+              angleAxis: {
+                  startAngle: 90,
+                  splitLine: {
+                      show: true
+                  }
+              },
+              radiusAxis: {
+                  type: 'category',
+                  data: ['2015', '2016', '2017', '2018', '2019'],
+                  z: 10
+              },
+              polar: {
+              },
+              series: [{
+                  type: 'bar',
+                  data: [19.83, 21.42, 18.04, 13.99, 13.01],//input data here!!!
+                  coordinateSystem: 'polar',
+                  color: 'rgba(200, 0, 0, 0.5)',
+                  itemStyle: {
+                      borderColor: 'red',
+                      borderWidth: 1
+                  }
+              }],
+              tooltip: {
+                  show: true //显示提示框
+              },
+              legend: {
+                  show: false,
+              }
+          };
+
+          // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+      </script>
+  </body>
+</html>

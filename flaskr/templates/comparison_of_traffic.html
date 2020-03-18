@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <!-- route of echarts.js-->
+  </head>
+  <body>
+    <!-- prepare dom for ECharts with size -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // Based on dom，initial echarts
+        var myChart = echarts.init(document.getElementById('main'));
+        //show the safety coefficient for the chosen city
+        // Specifying configuration items and data for the chart
+        var dataCity1 = [
+            [2015,60.82,27,39.04],//input data here!!![year,Traffic_index,Time_index,Inefficiency_index]
+            [2016,96.02,31,97.04],
+            [2017,114.57,35.97,105.55],
+            [2018,115.81,36,105.91],
+            [2019,99.42,32.08,80.43]
+        ];
+
+        var dataCity2 = [
+            //same for City2
+
+        ];
+
+        var dataCity3 = [
+
+        ];
+
+        var schema = [
+            {name: 'year', index: 0, text: 'year'},
+            {name: 'Traffic_index', index: 1, text: 'Traffic_index'},
+            {name: 'Time_index', index: 2, text: 'Time_index'},
+            {name: 'Inefficiency_index', index: 3, text: 'Inefficiency_index'},
+        ];
+
+
+        var itemStyle = {
+            opacity: 0.8,
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowOffsetY: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+        };
+
+        var option = {
+            backgroundColor: '#404a59',
+            color: [
+                '#dd4444', '#fec42c', '#80F1BE'
+            ],
+            legend: {
+                top: 10,
+                data: ['City1', 'City2', 'City3'],
+                textStyle: {
+                    color: '#fff',
+                    fontSize: 16
+                }
+            },
+            grid: {
+                left: '10%',
+                right: 150,
+                top: '18%',
+                bottom: '10%'
+            },
+            tooltip: {
+                padding: 10,
+                backgroundColor: '#222',
+                borderColor: '#777',
+                borderWidth: 1,
+                formatter: function (obj) {
+                    var value = obj.value;
+                    return '<div style="border-bottom: 1px solid rgba(255,255,255,.3); font-size: 18px;padding-bottom: 7px;margin-bottom: 7px">'
+                        + obj.seriesName + ' ' + 'Year：'+ value[0] 
+                        + value[7]
+                        + '</div>'
+                        + schema[1].text + '：' + value[1] + '<br>'
+                        + schema[2].text + '：' + value[2] + '<br>'
+                        + schema[3].text + '：' + value[3] + '<br>';
+                }
+            },
+            xAxis: {
+                type: 'value',
+                name: 'Year',
+                nameGap: 16,
+                nameTextStyle: {
+                    color: '#fff',
+                    fontSize: 14
+                },
+                min: 2014,
+                max: 2019,
+                splitLine: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#eee'
+                    }
+                }
+            },
+            yAxis: {
+                type: 'value',
+                name: 'Traffic_index',
+                nameLocation: 'end',
+                nameGap: 20,
+                nameTextStyle: {
+                    color: '#fff',
+                    fontSize: 16
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#eee'
+                    }
+                },
+                splitLine: {
+                    show: false
+                }
+            },
+            visualMap: [
+                {
+                    left: 'right',
+                    top: '10%',
+                    dimension: 3,
+                    min: 0,
+                    max: 200,
+                    itemWidth: 30,
+                    itemHeight: 120,
+                    calculable: true,
+                    precision: 0.1,
+                    text: ['Square: Inefficiency'],
+                    textGap: 30,
+                    textStyle: {
+                        color: '#fff'
+                    },
+                    inRange: {
+                        symbolSize: [10, 70]
+                    },
+                    outOfRange: {
+                        symbolSize: [10, 70],
+                        color: ['rgba(255,255,255,.2)']
+                    },
+                    controller: {
+                        inRange: {
+                            color: ['#c23531']
+                        },
+                        outOfRange: {
+                            color: ['#444']
+                        }
+                    }
+                },
+                {
+                    left: 'right',
+                    bottom: '5%',
+                    dimension: 2,//connect to input data
+                    min: 0,
+                    max: 75,
+                    itemHeight: 120,
+
+                    precision: 0.1,
+                    text: ['Light/Dark: Time_index'],
+                    textGap: 30,
+                    textStyle: {
+                        color: '#fff'
+                    },
+                    inRange: {
+                        colorLightness: [1, 0.5]
+                    },
+                    outOfRange: {
+                        color: ['rgba(255,255,255,.2)']
+                    },
+                    controller: {
+                        inRange: {
+                            color: ['#c23531']
+                        },
+                        outOfRange: {
+                            color: ['#444']
+                        }
+                    }
+                }
+            ],
+            series: [
+                {
+                    name: 'City1',
+                    type: 'scatter',
+                    itemStyle: itemStyle,
+                    data: dataCity1
+                },
+                {
+                    name: 'City2',
+                    type: 'scatter',
+                    itemStyle: itemStyle,
+                    data: dataCity2
+                },
+                {
+                    name: 'City3',
+                    type: 'scatter',
+                    itemStyle: itemStyle,
+                    data: dataCity3
+                }
+            ]
+        };
+        myChart.setOption(option);
+      </script>
+  </body>
+</html>

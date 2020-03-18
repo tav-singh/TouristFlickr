@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <!-- route of echarts.js-->
+  </head>
+  <body>
+    <!-- prepare dom for ECharts with size -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // Based on dom，initial echarts
+        var myChart = echarts.init(document.getElementById('main'));
+        //show the safety coefficient for the chosen city
+        // Specifying configuration items and data for the chart
+          var option = {
+            title: {
+                text: 'Traffic Information'
+            },
+            tooltip: {},
+            legend: {
+                data: ['Traffic', 'Time' ,'Inefficiency']
+            },
+            radar: {
+                // shape: 'circle',
+                name: {
+                    textStyle: {
+                        color: '#fff',
+                        backgroundColor: '#999',
+                        borderRadius: 3,
+                        padding: [3, 5]
+                    }
+                },
+                indicator: [
+                    { name: '2015', max:486},
+                    { name: '2016', max:486},
+                    { name: '2017', max:486},
+                    { name: '2018', max:486},
+                    { name: '2019', max:486},
+
+                ]
+            },
+            series: [{
+                type: 'radar',
+                // areaStyle: {normal: {}},
+                data: [
+                    {
+                        value: [60.82, 96.02, 114.57, 115.81, 99.42],//traffic_index from 2015 to 2019!!!
+                        name: 'Traffic'
+                    },
+                    {
+                        value: [27, 31, 35.97, 36, 32.08],//traffic_index from 2015 to 2019
+                        name: 'Time'
+                    },
+                    {
+                        value: [39.04, 97.04, 105.55, 105.91, 80.43],//traffic_index from 2015 to 2019
+                        name: 'Inefficiency'
+                    }
+                ]
+            }]
+        };
+        myChart.setOption(option);
+      </script>
+  </body>
+</html>

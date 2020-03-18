@@ -9,19 +9,12 @@
         margin: 0;
     }
     .imgrid .item{
-        margin-bottom: 60px;
-    }
-    .content-slider li{
-        background-color: #ed3020;
-        text-align: center;
-        color: #FFF;
-    }
-    .content-slider h3 {
-        margin: 0;
-        padding: 70px 0;
+        margin-bottom: 0;
     }
     .imgrid{
-        width: 800px;
+        width: 90%;
+        margin-left: 50px;
+        /* margin-top: 0px; */
     }
 </style>
 
@@ -47,14 +40,10 @@
 </script>
 
 <div id="close-city">x</div>
-<div class="oBg">
-    <div>
-        <div>
-            <p style="font-size: 1em; opacity: 85%;">{{data.country}}</p>
-            <p>{{data.city}}</p>
+<div style="margin-top: 10px;">
         <div class="imgrid">
                 <div class="item">
-                    <div class="clearfix" style="max-width:474px;">
+                    <div class="clearfix" style="max-width: 500px;">
                         <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
                             <li data-thumb={{data.description[0].cdn_url}}>
                                 <img src={{data.description[0].cdn_url}} />
@@ -94,8 +83,10 @@
                 </div>
         
             </div>
+            <div style="margin-left: 50px;">
+            <p style="font-size: 1em; margin:0;">{{data.country}}</p>
+            <p style="font-size: 1.5em; margin:0;">{{data.city}}</p>
         </div>
-    </div>
 </div>
 <div id="my_dataviz" style="width: 700px;height:500px;" ></div>
 

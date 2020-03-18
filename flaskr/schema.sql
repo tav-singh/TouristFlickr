@@ -126,7 +126,7 @@ select count(*) from (select city, country, latitude, longitude, sum(popularity)
 group_concat(cdn_url) as cdn_url, group_concat(class_tag) as class_tag from
 (select * from photos_nus where class_tag like '%beach%') group by city, country) as p inner join
 (select city, country, group_concat(groceries_index) as groceries_index, group_concat(restaurant_price_index) as
-restaurant_price_index, group_concat(cost_living_index) as cost_living_index, group_concat(year) as year from cost
+restaurant_price_index, group_concat(cost_living_index) as cost_living_index, group_concat(year) as cost_year from cost
 group by city, country) c on p.city = c.city where p.country = c.country order by p.popularity desc limit 2
 
 
@@ -137,11 +137,10 @@ group_concat(cdn_url) as cdn_url, group_concat(class_tag) as class_tag from
 
 select city, country, latitude, longitude, sum(popularity) as popularity, group_concat(url) as url, group_concat(cdn_url) as cdn_url, group_concat(class_tag) as class_tag from photos_nus group by city, country as p inner join cost on p.city = cost.city, p.country = cost.country order by p.popularity desc limit 2
 
-create view [crime_view] as
-select city, country, group_concat(crime_index) as crime_index, group_concat(safety_index) as safety_index, group_concat(year)
-as year from crime group by city, country
+create view [crime_view] as select city, country, group_concat(crime_index) as crime_index, group_concat(safety_index) as safety_index, group_concat(year) as crime_year from crime group by city, country
+create view [traffic_view] as select city, country, group_concat(traffic_index) as traffic_index, group_concat(time_index) as time_index, group_concat(inefficiency_index) as inefficiency_index, group_concat(year) as traffic_year from traffic group by city, country
 
-
+traffic_index, time_index,
 select city, country, latitude, longitude, sum(popularity) as popularity, group_concat(url) as url, group_concat(cdn_url) as cdn_url, group_concat(class_tag) as class_tag from (select * from photos_nus where class_tag like '%beach%') group by city, country
 
 */

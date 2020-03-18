@@ -230,7 +230,15 @@
         // Create data for donut:
         var data = $('#result').data().result;
         console.log(data)
-        
+        var continentColour = {
+        "Asia": "#fd9644",
+        "Europe": "#a55eea",
+        "North America": "#fc5c65",
+        "South America": "#26de81",
+        "Africa": "#778ca3",
+        "Australia": "#d1d8e0"
+        }
+
         // get map data
         d3.json(
             "../static/json/custom50.json",
@@ -255,9 +263,16 @@
                     .attr("id", function (d, i) {
                         return "country" + d.properties.iso_a3;
                     })
+                    .style("fill", function (d) {
+                        console.log(d.properties);
+                        return #fd9644;
+                        //return continentColour[d.properties.continent];
+                    })
                     .attr("class", "country")
                     // .attr("stroke-width", 1)
                     // .attr("stroke", "#ff0000")
+
+
                     // add a mouseover action to show name label for feature/country
                     .on("mouseover", function (d, i) {
                         d3.select("#countryLabel" + d.properties.iso_a3).style("display", "block");

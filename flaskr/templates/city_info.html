@@ -1,12 +1,92 @@
+<link rel="stylesheet"  href="../static/css/lightslider.css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="../static/js/lightslider.js"></script>
+
+<style>
+    ul{
+        list-style: none outside none;
+        padding-left: 0;
+        margin: 0;
+    }
+    .imgrid .item{
+        margin-bottom: 0;
+    }
+    .imgrid{
+        width: 90%;
+        margin-left: 50px;
+        /* margin-top: 0px; */
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+       $("#content-slider").lightSlider({
+           loop:true,
+           keyPress:true
+       });
+       $('#image-gallery').lightSlider({
+           gallery:true,
+           item:1,
+           thumbItem:9,
+           slideMargin: 0,
+           speed:500,
+           auto:true,
+           loop:true,
+           onSliderLoad: function() {
+               $('#image-gallery').removeClass('cS-hidden');
+           }  
+       });
+   });
+</script>
 
 <div id="close-city">x</div>
-<div class="oBg">
-    <div>
-        <div>
-            <p style="font-size: 1em; opacity: 85%;">{{data.country}}</p>
-            <p>{{data.city}}</p>
+<div style="margin-top: 10px;">
+        <div class="imgrid">
+                <div class="item">
+                    <div class="clearfix" style="max-width: 500px;">
+                        <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+                            <li data-thumb={{data.description[0].cdn_url}}>
+                                <img src={{data.description[0].cdn_url}} />
+                                 </li>
+                            <li data-thumb="{{data.description[1].cdn_url}}"> 
+                                <img src="{{data.description[1].cdn_url}}" />
+                                 </li>
+                            <li data-thumb="{{data.description[2].cdn_url}}"> 
+                                <img src="{{data.description[2].cdn_url}}" />
+                            </li>
+                            <li data-thumb="{{data.description[3].cdn_url}}"> 
+                                <img src="{{data.description[3].cdn_url}}" />
+                            </li>
+                            <li data-thumb="{{data.description[4].cdn_url}}"> 
+                                <img src="{{data.description[4].cdn_url}}" />
+                            </li>
+                            <li data-thumb="{{data.description[5].cdn_url}}"> 
+                                <img src="{{data.description[5].cdn_url}}" />
+                            </li>
+                            <li data-thumb="{{data.description[6].cdn_url}}"> 
+                                <img src="{{data.description[6].cdn_url}}" />
+                            </li>
+                            <li data-thumb="{{data.description[7].cdn_url}}"> 
+                                <img src="{{data.description[7].cdn_url}}" />
+                            </li>
+                            <li data-thumb="{{data.description[8].cdn_url}}"> 
+                                <img src="{{data.description[8].cdn_url}}" />
+                            </li>
+                            <li data-thumb="{{data.description[9].cdn_url}}"> 
+                                <img src="{{data.description[9].cdn_url}}" />
+                            </li>
+                            <li data-thumb="{{data.description[10].cdn_url}}"> 
+                                <img src="{{data.description[10].cdn_url}}" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+        
+            </div>
+            <div style="margin-left: 50px;">
+            <p style="font-size: 1em; margin:0;">{{data.country}}</p>
+            <p style="font-size: 1.5em; margin:0;">{{data.city}}</p>
         </div>
-    </div>
 </div>
 <div id="my_dataviz" style="width: 700px;height:500px;" ></div>
 
@@ -49,8 +129,6 @@
         },
         toolbox: {
             feature: {
-                restore: {},
-                saveAsImage: {}
             }
         },
         series: [
@@ -63,7 +141,7 @@
                              color: [[0.2, '#c23531'], [0.8, '#63869e'], [1, '#91c7ae']]
                                     }
                                 },
-                data: [{value: 71, name: 'Safety Coefficient of city1'}]
+                data: [{value: 71, name: 'Safety Coefficient'}]
             }
         ]
     };

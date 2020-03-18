@@ -125,11 +125,12 @@ svg rect {
 
 .overlay {
     position: absolute;
-    width: 40%;
+    overflow: scroll;
+    width: 30%;
     height: 100%;
     z-index: 10;
     right: 0;
-    background-color: #f3f3f3;
+    background-color: rgba(0, 0, 0, 0.1);;
 }
 
 #close-city {
@@ -137,6 +138,7 @@ svg rect {
     z-index: 15;
     right: 0;
     color: black;
+    text-shadow:0 0 3px #FF0000;
     height: 30px;
     width: 30px;
     font-size: 30px;
@@ -322,8 +324,56 @@ flex-direction: column; */
 .image-pop {
     background: white;
 }
+#photos {
+   /* Prevent vertical gaps */
+   line-height: 0;
+   
+   -webkit-column-count: 5;
+   -webkit-column-gap:   0px;
+   -moz-column-count:    5;
+   -moz-column-gap:      0px;
+   column-count:         5;
+   column-gap:           0px;
+}
+#photos img {
+  /* Just in case there are inline attributes */
+  width: 100% !important;
+  height: auto !important;
+}
 
+@media (max-width: 1800px) {
+  #photos {
+  -moz-column-count:    3;
+  -webkit-column-count: 3;
+  column-count:         3;
+  }
+}
+@media (max-width: 1000px) {
+  #photos {
+  -moz-column-count:    3;
+  -webkit-column-count: 3;
+  column-count:         3;
+  }
+}
+@media (max-width: 800px) {
+  #photos {
+  -moz-column-count:    2;
+  -webkit-column-count: 2;
+  column-count:         2;
+  }
+}
+@media (max-width: 400px) {
+  #photos {
+  -moz-column-count:    1;
+  -webkit-column-count: 1;
+  column-count:         1;
+  }
+}
 
+body {
+  margin: 0;
+  padding: 0;
+}
 
 @media screen and (max-width: 1800px) {
     /* .modalStart {

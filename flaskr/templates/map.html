@@ -12,7 +12,7 @@
 
 <body>
 
-    <div style="position: relative">
+    <div id="main-cont" style="position: relative">
         <div id="one-city-views" class="overlay" style="display: none;">
 
         </div>
@@ -203,9 +203,6 @@
                 );
         }
 
-
-
-
         // on window resize
         $(window).resize(function () {
             // Resize SVG
@@ -259,8 +256,8 @@
                         return "country" + d.properties.iso_a3;
                     })
                     .attr("class", "country")
-                    //      .attr("stroke-width", 10)
-                    //      .attr("stroke", "#ff0000")
+                    // .attr("stroke-width", 1)
+                    // .attr("stroke", "#ff0000")
                     // add a mouseover action to show name label for feature/country
                     .on("mouseover", function (d, i) {
                         d3.select("#countryLabel" + d.properties.iso_a3).style("display", "block");
@@ -364,21 +361,50 @@
                         .attr("height", "100%")
                         .attr("patternUnits", "userSpaceOnUse")
                         .append("svg:image")
-                        .attr("xlink:href", de.description[1].cdn_url)
+                        .attr("xlink:href", de.description[0].cdn_url)
                         .attr("width", 100)
                         .attr("height", 100)
                         .attr("x", 0)
-                        .attr("y", 0);
-
-                    var circleImg = countriesGroup.append("rect")
+                        .attr("y", 0)
+                        
+                        var rectImage = countriesGroup.append("rect")
                         .attr("transform", function(d) {return "translate(" + projection([de.longitude - 6, de.latitude + 15])[0] +"," + projection([de.longitude - 6, de.latitude + 15])[1] + ")" })
                         .attr("width", 100)
                         .attr("height", 100)
                         // .attr("r", 100 / 2)
                         .attr("class", "image-pop")
                         // .style("fill", "#fff")
-                        .style("fill", "url(#img-pop" + idx + ")");
+                        .style("fill", "url(#img-pop" + idx + ")")
+                        .on("mouseover", function () {
+                            let pos = d3.select(this).node().getBoundingClientRect()
+                            console.log(pos.left)
+                            const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+                            const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
 
+                            vwPosLeftOffset = pos.left < vw/2 ? 125 : (-275)
+                            vhPosTopOffset = pos.top < vh /2 ? 0 : (-175)
+
+                            $( "<div></div>", {
+                                "id": "div-img-pop"
+                            }).appendTo( "#main-cont" );
+                            $("#div-img-pop").css({
+                                display: "block",
+                                position: "absolute",   
+                                top: pos.top + vhPosTopOffset,
+                                left: pos.left + vwPosLeftOffset,
+                                background: "white",
+                                height: "250px",
+                                width: "250px",
+                                "border-radius": "15px",
+                                background: "url("+de.description[0].cdn_url + ")",
+                                "background-size" : "cover",
+                                "background-position" : "center"
+
+                            })
+                        })
+                        .on("mouseout", function (d, i) {
+                            $("#div-img-pop").css("display", "none")
+                        })
 
                     // countriesGroup
                     // .append("svg:image")
@@ -443,8 +469,6 @@
                         return d.bbox.height;
                     });
                 initiateZoom();
-
-                
 
             }
         );

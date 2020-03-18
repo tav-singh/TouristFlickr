@@ -24,7 +24,7 @@ svg rect {
     /* country colour */
     stroke: #2A2C39;
     /* country border colour */
-    stroke-width: 1;
+    stroke-width: 0.5;
     /* country border width */
 }
 

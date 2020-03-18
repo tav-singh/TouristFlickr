@@ -9,7 +9,7 @@ from flask_jsglue import JSGlue
 import json
 import copy
 
-NUM_ELE = 2
+NUM_ELE = 15
 
 # LIVING_INDEX_YEARS = ["2015", "2016", "2017", "2018", "2019"]
 
@@ -113,7 +113,7 @@ def create_json(photos_list):
         #     a["restaurant_price_index_" + year] = photos['restaurant_price_index_' + year]
         formatted_list.append(a)
     # print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n\n")
-    print(formatted_list)
+    # print(formatted_list)
     return formatted_list
 
 

@@ -58,7 +58,9 @@
 
             </div>
 </div>
-<div id="my_dataviz" style="width: 700px;height:500px;" ></div>
+<div id="safety_gauge" style="width: 500px;height:300px;" ></div>
+<div id="summary" style="width: 500px;height:300px;" ></div>
+
 
 <!--<div style=" height: 400px; overflow: scroll;">-->
 <!--    <section id="photos"></section>-->
@@ -93,13 +95,20 @@
 <!-- Create a div where the graph will take place -->
 
 <script type="text/javascript">
-
+    var data=JSON.parse('{{data|tojson|safe}}');
 
 
     // EXAMPLE OF SINGLE GUAGE
-    var myChart = echarts.init(document.getElementById('my_dataviz'));
-
-  
+    var safetyChart = echarts.init(document.getElementById('safety_gauge'));
+    
+    // console.log("Well this is it");
+    // console.log(data);
+    var crime_years = Object.keys(data.crime);
+    console.log(crime_years);
+    var latest_year = crime_years[crime_years.length - 1];
+    // console.log(latest_year);
+    var safety_index = data.crime[latest_year].safety_index;
+    // console.log(safety_index);
     var option = {
         tooltip: {
             formatter: '{a} <br/>{b} : {c}%'
@@ -118,14 +127,56 @@
                              color: [[0.2, '#c23531'], [0.8, '#63869e'], [1, '#91c7ae']]
                                     }
                                 },
-                data: [{value: 71, name: 'Safety Coefficient'}]
+                data: [{value: safety_index, name: 'Safety Coefficient ' + latest_year}]
             }
         ]
     };
 
-      myChart.setOption(option);
+    safetyChart.setOption(option);
 
-    var data=JSON.parse('{{data|tojson|safe}}');
+    var summaryChart = echarts.init(document.getElementById('summary'));
+        //show the safety coefficient for the chosen city
+        // Specifying configuration items and data for the chart
+          var option = {
+            title: {
+                text: 'City Statistics'
+            },
+            tooltip: {},
+            legend: {
+                data: ['Summary']
+            },
+            radar: {
+                // shape: 'circle',
+                name: {
+                    textStyle: {
+                        color: '#fff',
+                        backgroundColor: '#999',
+                        borderRadius: 3,
+                        padding: [3, 5],
+                    }
+                },
+                indicator: [
+                    { name: 'Traffic', max:350},
+                    { name: 'Pollution', max:120},
+                    { name: 'Cost Of Living', max:150},
+                    { name: 'Groceries Index', max:150},
+                    { name: 'Restaurant Price Index', max:150},
+                ]
+            },
+            series: [{
+                type: 'radar',
+                // areaStyle: {normal: {}},
+                data: [
+                    {
+                        value: [60.82, 96.02, 114.57, 115.81, 99.42],
+                        name: ''
+                    }
+                ]
+            }]
+        };
+        summaryChart.setOption(option);
+      
+    
     var allImages = "";
      
     for (var i = 0; i < Object.keys(data.description).length; i++) {

@@ -39,11 +39,19 @@
    });
 </script>
 
+<div id="loading-overlay" class="loading-overlay">
+</div>
 <div id="close-city">x</div>
+<div class="city-info-header flex">
+    <p style="margin:0">
+        <span style="font-size: 1.5em; margin:0;">{{data.city}}, </span>
+        <span style="font-size: 1.5em; margin:0;">{{data.country}}</span>
+    </p>
+</div>
 <div style="margin-top: 10px;">
     <div class="imgrid">
         <div class="item">
-            <div class="clearfix" style="max-width: 500px;">
+            <div class="clearfix" style="width: 500px;">
                 <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
                 </ul>
             </div>
@@ -51,12 +59,9 @@
     </div>
 </div>
         
-            <div style="margin-left: 50px;">
-            
-            <p style="font-size: 1.5em; margin:0;">{{data.city}}</p>
-            <p style="font-size: 1em; margin:0;">{{data.country}}</p>
+<div style="margin-left: 50px;">
 
-            </div>
+</div>
 </div>
 <div id="safety_gauge" style="width: 500px;height:300px;" ></div>
 <div id="summary" style="width: 500px;height:300px;" ></div>
@@ -73,11 +78,16 @@
     $(() => {
         let cityData = $('#city').data().raw
         console.log("city info", cityData)
+        console.log("header image", "url(" +data.description[0].cdn_url+ ")")
+        // $(".city-info-header").css("background-image", "url(" +data.description[0].cdn_url+ ")")
     })
 
     $("#close-city").click(() => {
         console.log("close")
-        d3.select("#one-city-views").style("display", "none")
+        $(".overlay").css("width", "0")
+        svg
+            .attr("width", "100%")
+            initiateZoom();
         cityOpened = false
 
     })
@@ -96,7 +106,6 @@
 
 <script type="text/javascript">
     var data=JSON.parse('{{data|tojson|safe}}');
-
 
     // EXAMPLE OF SINGLE GUAGE
     var safetyChart = echarts.init(document.getElementById('safety_gauge'));
@@ -180,8 +189,8 @@
     var allImages = "";
      
     for (var i = 0; i < Object.keys(data.description).length; i++) {
-     var cdn_url = data.description[i].cdn_url
-      allImages += "<li data-thumb=" + cdn_url+"><img src= "+ cdn_url + " /></li>";
+        var cdn_url = data.description[i].cdn_url
+        allImages += "<li data-thumb=" + cdn_url+"><div style='background-image: url("+ cdn_url + ")' ></div></li>";
     }
 
     document.getElementById('image-gallery').innerHTML = allImages;

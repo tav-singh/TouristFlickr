@@ -15,6 +15,7 @@
           myChart.showLoading();
 
           $.get(ROOT_PATH + 'data/asset/data/life-expectancy.json', function (data) {
+            // the example's json is from http://www.echartsjs.com/examples/data/asset/data/life-expectancy-table.json
               myChart.hideLoading();
 
               var itemStyle = {
@@ -198,7 +199,6 @@
               myChart.setOption(option);
 
           });
-          // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
       </script>
   </body>

@@ -88,14 +88,15 @@
     <script>
         var tags = $('#result').data().pref.split(",")
         tagColors = {
-            city: "1abc9c",
-            nature: "d35400",
-            beach: "3498db", 
-            architecture: "f1c40f", 
-            lake: "e67e22",
-            mountains: "2980b9"
+            city: "fbc11a",
+            nature: "5f6c11",
+            beach: "262244",
+            architecture: "ec7ead",
+            lake: "fade98",
+            mountains: "463a3a"
         }
-        // DEFINE VARIABLES
+        var donutColour = ["#fade98", "#5f6c11", "#fbc11a", "#ec7ead", "#274b69", "#463a3a"];
+        // DEFINE VARIABLES #463a3a
         // Define size of map group
         // Full world map is 2:1 ratio
         // Using 12:5 because we will crop top and bottom of map
@@ -263,11 +264,10 @@
                     .attr("id", function (d, i) {
                         return "country" + d.properties.iso_a3;
                     })
-                    .style("fill", function (d) {
-                        console.log(d.properties);
-                        return #fd9644;
-                        //return continentColour[d.properties.continent];
-                    })
+                    //.style("fill", function (d) {
+                    //    console.log(d.properties);
+                    //    return continentColour[d.properties.continent];
+                    //})
                     .attr("class", "country")
                     // .attr("stroke-width", 1)
                     // .attr("stroke", "#ff0000")
@@ -301,14 +301,15 @@
                     // set the color scale
                     // console.log(data[idx])
                     let clso = data[idx].class_tag_overall
-                    var data_pie = {city: 0, nature: 0, beach: 0, architecture: 0, lake: 0, mountain: 0}
+                    var data_pie = {city: 0, nature: 0, beach: 0, architecture: 0, lake: 0, mountains: 0}
                     for (tag of tags) {
                         if(clso[tag]) data_pie[tag] = clso[tag]
                     }
 
                     var color = d3.scaleOrdinal()
                     .domain(data_pie)
-                    .range(["#1abc9c", "#d35400", "#3498db", "#f1c40f", "#e67e22", "#2980b9"])
+                    .range(donutColour)
+                    console.log(donutColour);
                     // Compute the position of each group on the pie:
                     var pie = d3.pie()
                     .value(function(d) {return d.value; })

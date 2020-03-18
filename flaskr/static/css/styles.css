@@ -9,6 +9,10 @@ body {
     font-size: 17px;
 }
 
+#main-cont {
+    display: flex;
+}
+
 #map-holder {
     width: 100vw;
     height: 100vh;
@@ -124,15 +128,17 @@ svg rect {
 }
 
 .overlay {
-    position: absolute;
-    width: 40%;
-    /*overflow: scroll;
-    width: 30%;*/
-    height: 100%;
+    /* width: 600px;  */
+    height: 100vh;
     z-index: 10;
-    right: 0;
+    /* right: 0; */
     background-color: #f3f3f3;
     /*background-color: rgba(0, 0, 0, 0.1);;*/
+}
+
+.svg-content-responsive {
+    width:100%;
+    transition: .5s ease-in;
 }
 
 #close-city {
@@ -326,6 +332,96 @@ flex-direction: column; */
 .image-pop {
     background: white;
 }
+
+#one-city-views {
+    overflow: hidden !important;
+    transition: width 0.5s ease-in;
+    position: relative;
+}
+
+#image-gallery > li > div {
+    width: 300px;
+    height: 200px;
+    background-position: center;
+    background-size: cover;
+}
+
+#image-gallery > li {
+    width: 500px !important ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#div-img-pop-layer {
+    width: 100%;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    height: 40px;
+    background-color: #000000c9;
+    opacity: 0.3;
+    border-radius: 0 0 15px 15px;
+    position: absolute;
+    z-index: 1;
+}
+
+#div-img-pop-p {
+    width: 100%;
+    color: white;
+    margin: 0;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    z-index: 2;
+}
+
+.loading-overlay {
+    background: #f5f5f5;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+	animation-name: fadeOutOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+    animation-duration: 1s;
+}
+
+@keyframes fadeOutOpacity {
+	0% {
+        z-index: 99;
+		opacity: 1;
+    }
+    100% {
+        z-index: -1;
+        opacity: 0;
+    }
+}
+
+.city-info-header {
+    height: 70px;
+    justify-content: flex-start;
+    align-items: center;
+    padding:20px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    justify-content: center;
+    align-items: center;
+}
 /*
 #photos {
    /* Prevent vertical gaps
@@ -378,8 +474,3 @@ body {
   padding: 0;
 }
 */
-@media screen and (max-width: 1800px) {
-    /* .modalStart {
-    height: 90vh;
-} */
-}

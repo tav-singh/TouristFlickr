@@ -1,7 +1,7 @@
 import os
 import sqlite3
 from flask import Flask
-from flask import request, render_template
+from flask import request, render_template, redirect
 from flask import jsonify
 import sys
 from wtforms import Form, SelectMultipleField
@@ -199,6 +199,8 @@ def create_app(test_config=None):
     def user_pref():
         # print(request.args.get('pref'), file=sys.stderr)
         pref = request.args.get('pref')
+        if pref is None:
+            return redirect('/')
         print(pref, file=sys.stderr)
         result = json.dumps(get_top_elements_from_db(pref))
         print(result, file=sys.stderr)
@@ -209,7 +211,7 @@ def create_app(test_config=None):
         query = request.args.get('data')
         query = json.loads(query)
         # data = get_city_info(query)
-        # print(data[0], file=sys.stderr)
+        print(json.dumps(query), file=sys.stderr)
         html = render_template('city_info.html', data=query, raw=json.dumps(query))
         return jsonify({'results':html})
 

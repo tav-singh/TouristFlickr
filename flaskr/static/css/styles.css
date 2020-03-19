@@ -335,7 +335,7 @@ flex-direction: column; */
 
 #one-city-views {
     overflow: hidden !important;
-    transition: width 0.5s ease-in;
+    transition: width 0.1s ease-in;
     position: relative;
 }
 
@@ -398,6 +398,15 @@ flex-direction: column; */
         z-index: 99;
 		opacity: 1;
     }
+    25% {
+		opacity: .75;
+    }
+	50% {
+		opacity: .5;
+    }
+    75% {
+		opacity: .25;
+    }
     100% {
         z-index: -1;
         opacity: 0;
@@ -409,9 +418,9 @@ flex-direction: column; */
     justify-content: flex-start;
     align-items: center;
     padding:20px;
-    background-position: center;
+    /* background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
 }
 
 .flex {

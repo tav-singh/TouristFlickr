@@ -282,30 +282,7 @@ d3.json(
             })
             .attr("stroke", "black")
             .style("stroke-width", "0px")
-            .on("click", function () {
-            // if (!cityOpened) {
-                val = de
-                console.log("sending...")
-                console.log(val)
-                // console.log(val)
-                $.ajax({
-                url: "/city_info",
-                type: "get",
-                data: {data: JSON.stringify(val)},
-                success: function(response) {
-                    console.log("success")
-                    console.log(response)
-                    $("#one-city-views").html(response.results)
-                },
-                error: function(xhr) {
-                //Do Something to handle error
-                }
-                });
-
-                // d3.select("#one-city-views").style("display", "block")
-                $(".overlay").css("width", "500px")
-                cityOpened = true
-            })
+            .on("click", () => getCityInfo(de))
             .on("mouseover", function (d, i) {
                 d3.select(this).style("cursor", "pointer"); 
             })
@@ -340,6 +317,7 @@ d3.json(
                 // .style("fill", "#fff")
                 .style("fill", "url(#img-pop" + idx + ")")
                 .on("mouseover", function () {
+                    d3.select(this).style("cursor", "pointer"); 
                     let pos = d3.select(this).node().getBoundingClientRect()
                     console.log(pos.left)
                     const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
@@ -378,36 +356,12 @@ d3.json(
                     $("#div-img-pop-p").text(de.city + ", " + de.country)
                 })
                 .on("mouseout", function (d, i) {
+                    d3.select(this).style("cursor", "default"); 
                     $("#div-img-pop").css("display", "none")
                     $("#div-img-pop").empty()
 
                 })
-                .on("click", function () {
-                    val = de
-                    console.log("sending...")
-                    console.log(val)
-                    // console.log(val)
-                    $.ajax({
-                    url: "/city_info",
-                    type: "get",
-                    data: {data: JSON.stringify(val)},
-                    success: function(response) {
-                        console.log("success")
-                        console.log(response)
-                        $("#one-city-views").html(response.results)
-                    },
-                    error: function(xhr) {
-                    //Do Something to handle error
-                    }
-                    });
-    
-                    $(".overlay").css("width", "800px")
-                    svg
-                    .attr("width", "100%")
-                    initiateZoom();
-                    // d3.select("#one-city-views").style("display", "block")
-                    cityOpened = true
-                })
+                .on("click", () => getCityInfo(de))
 
             // countriesGroup
             // .append("svg:image")
@@ -416,6 +370,36 @@ d3.json(
             // .attr("class", "image-pop")
             // .attr("x", "200")
             //end of for point gen.
+        }
+
+        function getCityInfo(val) {
+            console.log("sending...")
+            console.log(val)
+            // console.log(val)
+            $.ajax({
+            url: "/city_info",
+            type: "get",
+            data: {data: JSON.stringify(val)},
+            success: function(response) {
+                console.log("success")
+                console.log(response)
+                $("#one-city-views").html(response.results)
+                openCityInfo()
+            },
+            error: function(xhr) {
+                alert("Err city info load")
+                console.log(xhr)
+            }
+            });
+        }
+
+        function openCityInfo() {
+            $(".overlay").css("width", "800px")
+            svg
+            .attr("width", "100%")
+            initiateZoom();
+            // d3.select("#one-city-views").style("display", "block")
+            cityOpened = true
         }
         
         // Add a label group to each feature/country. This will contain the country name and a background rectangle

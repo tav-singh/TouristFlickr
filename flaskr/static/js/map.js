@@ -31,6 +31,28 @@ $("#close-city").click(() => {
 
 }) 
 
+var index_opened = false
+$("#index-tooltip").click(() => {
+    if (!index_opened) {
+        index_opened = true
+        $("#index-hidden").css({
+            display: "block"
+        })
+        $("#index-tooltip").css({
+            height: "180px"
+        })
+    } else {
+        index_opened = false
+        $("#index-hidden").css({
+            display: "none"
+        })
+        $("#index-tooltip").css({
+            height: "35px"
+        })
+
+    }
+})
+
 var comparison_mode = false;
 var comparison_cities = []
 
@@ -455,7 +477,7 @@ d3.json(
                             "top": "10%"
                         })
                         $("#compare-mode-text").text("Comparison Mode")
-                        $("#btn-compare").text("close")
+                        $("#btn-compare").text("Close")
                         $(".tagContainer").css("display", "none")
                     },
                     error: function(xhr) {

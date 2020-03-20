@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Map Test</title>
+    <title>Destinations</title>
     <link href="../static/css/styles.css" rel="stylesheet" type="text/css">
     <meta id="result" data-result="{{result}}" data-pref="{{pref}}">
     <meta id="country_count" data-count="{{country_count}}">
@@ -49,7 +49,17 @@
         <div id="comparison-overlay">
         </div>
        
-
+        <div id="index-tooltip">
+            <div class="index-show">
+                <p>What do these Indexes mean?</p>
+            </div>
+            <div id="index-hidden">
+                <p><a href="https://www.numbeo.com/cost-of-living/cpi_explained.jsp" target="_blank">Costs Index</a></p>
+                <p><a href="https://www.numbeo.com/crime/indices_explained.jsp" target="_blank">Safety Index</a></p>
+                <p><a href="https://www.numbeo.com/pollution/indices_explained.jsp" target="_blank">Pollution Index</a></p>
+                <p><a href="https://www.numbeo.com/traffic/indices_explained.jsp" target="_blank">Traffic Index</a></p>
+            </div>
+        </div>
     </div>
 <!--To access the ele here in html, otherwise I can write this to a file. -->
 <!--    {% for ele in result %}-->

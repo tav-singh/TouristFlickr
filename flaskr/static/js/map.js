@@ -250,8 +250,8 @@ var continentColour = {
 }
 
 
-var heat_color = d3.scaleThreshold().domain([0, 5, 10, 20, 30, 45, 75, 125, 200, 500])
-    .range(["rgb(255, 255, 255)", "rgb(204, 255, 255)", "rgb(153, 255, 255)", "rgb(102, 255, 255)", "rgb(51, 255, 255)", "rgb(0, 255, 255)", "rgb(51, 153, 255)", "rgb(0, 128, 255)", "rgb(0, 102, 204)", "rgb(0, 76, 153)"]);
+var heat_color = d3.scaleThreshold().domain([0, 1, 5, 10, 20, 30, 45, 75, 125, 300, 500])
+    .range([ "rgb(255, 255, 255)", "rgb(230, 230, 250)", "rgb(204, 255, 255)", "rgb(153, 255, 255)", "rgb(102, 255, 255)", "rgb(51, 255, 255)", "rgb(0, 255, 255)", "rgb(51, 153, 255)", "rgb(0, 128, 255)", "rgb(0, 102, 204)", "rgb(0, 76, 153)"]);
     // .range(["rgb(247,251,255)", "rgb(222,235,247)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)", "rgb(33,113,181)", "rgb(8,81,156)", "rgb(8,48,107)", "rgb(3,19,43)"]);
     // .domain([0, 5, 10, 15, 20, 25, 30, 35, 40, 45])
 // var country_count = JSON.parse('{{country_count|tojson|safe}}');
@@ -287,11 +287,14 @@ d3.json(
             })
             .style("fill", function (d) {
                 // console.log("Prop");
-               console.log(d.properties);
-               try{
+            //    console.log(d.properties);
+               if(country_c[d.properties.geounit]){
                return heat_color(country_c[d.properties.geounit]);
-               }catch(error){
-                   return heat_color(5);
+               }
+               else{
+                //    console.log("Error");
+                   console.log(heat_color(0))
+                   return heat_color(0);
                }
             })
             .attr("class", "country")

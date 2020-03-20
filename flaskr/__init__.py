@@ -236,7 +236,7 @@ def create_app(test_config=None):
         query = json.loads(query)
         # data = get_city_info(query)
         # print(data[0], file=sys.stderr)
-        get_country_count()
+        # get_country_count()
         html = render_template('city_info.html', data=query, raw=json.dumps(query))
         return jsonify({'results':html})
 

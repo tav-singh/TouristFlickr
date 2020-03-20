@@ -366,7 +366,7 @@ flex-direction: column; */
 }
 
 #one-city-views {
-    overflow: hidden !important;
+    /* overflow: hidden !important; */
     transition: width 0.1s ease-in;
     position: relative;
 }

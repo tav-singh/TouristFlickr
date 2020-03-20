@@ -177,6 +177,8 @@ var svg = d3
 // document.getElementById('print').innerHTML = result[0].longitude+','+result[0].latitude;
 // Create data for donut:
 var data = $('#result').data().result;
+// var country_c = $('country_count').data().country_count;
+// console.log(country_c);
 console.log(data)
 var continentColour = {
 "Asia": "#fd9644",
@@ -187,6 +189,18 @@ var continentColour = {
 "Australia": "#d1d8e0"
 }
 
+
+var heat_color = d3.scaleThreshold().domain([0, 5, 10, 20, 30, 45, 75, 125, 200, 500])
+    .range(["rgb(255, 255, 255)", "rgb(204, 255, 255)", "rgb(153, 255, 255)", "rgb(102, 255, 255)", "rgb(51, 255, 255)", "rgb(0, 255, 255)", "rgb(51, 153, 255)", "rgb(0, 128, 255)", "rgb(0, 102, 204)", "rgb(0, 76, 153)"]);
+    // .range(["rgb(247,251,255)", "rgb(222,235,247)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)", "rgb(33,113,181)", "rgb(8,81,156)", "rgb(8,48,107)", "rgb(3,19,43)"]);
+    // .domain([0, 5, 10, 15, 20, 25, 30, 35, 40, 45])
+// var country_count = JSON.parse('{{country_count|tojson|safe}}');
+// var country_count = '{{ country_count|tojson }}';
+var country_c = JSON.parse($('#country_count').data().count.replace(/'/g, '"'));
+
+
+// country_c);
+// console.log(country_c);
 // get map data
 d3.json(
     "../static/json/custom50.json",
@@ -211,10 +225,15 @@ d3.json(
             .attr("id", function (d, i) {
                 return "country" + d.properties.iso_a3;
             })
-            //.style("fill", function (d) {
-            //    console.log(d.properties);
-            //    return continentColour[d.properties.continent];
-            //})
+            .style("fill", function (d) {
+                // console.log("Prop");
+               console.log(d.properties);
+               try{
+               return heat_color(country_c[d.properties.geounit]);
+               }catch(error){
+                   return heat_color(5);
+               }
+            })
             .attr("class", "country")
             // .attr("stroke-width", 1)
             // .attr("stroke", "#ff0000")

@@ -1,11 +1,12 @@
 
+var tags;
 $(() => {
     // console.log($('#result').data().result)
     // let result = $('#result').data().result
     // console.log( (result) )
     // console.log( $('#result').data().pref )
 
-    let tags = $('#result').data().pref.split(",")
+    tags = $('#result').data().pref.split(",")
     // console.log(tags)
 
     $('.tags').each(function(i, obj) {
@@ -314,7 +315,103 @@ d3.json(
                 d3.selectAll(".country").classed("country-on", false);
                 d3.select(this).classed("country-on", true);
                 boxZoom(path.bounds(d), path.centroid(d), 20);
+                console.log("get country")
+                getCountry(d.properties.name)
             });
+
+            function getCountry(country) {
+
+                console.log(country)
+                $.ajax({
+                    url: "/country_info",
+                    type: "get",
+                    data: {pref: $('#result').data().pref, country: country },
+                    success: function(response) {
+                        let res = JSON.parse(response.result)
+                        console.log("success")
+                        console.log(res)
+                        svg.selectAll("path.donut").remove()
+                        svg.selectAll("rect.image-pop").remove()
+                        
+                        for (idx_c in res) {
+                            let point = res[idx_c]
+                            let point_country = point
+                            var defsc = countriesGroup.append('svg:defs')
+
+                            console.log("PHOTO", point_country.description[0].cdn_url)
+                            defsc.append("svg:pattern")
+                                .attr("id", "img-pop-c" + idx_c)
+                                .attr("width", "100%") 
+                                .attr("height", "100%")
+                                .attr("patternUnits", "userSpaceOnUse")
+                                .append("svg:image")
+                                .attr("xlink:href", point_country.description[0].cdn_url)
+                                .attr("width", 30)
+                                .attr("height", 30)
+                                .attr("x", 0)
+                                .attr("y", 0)
+                                
+                                var rectImgCountry = countriesGroup.append("rect")
+                                .attr("transform", function(d) {return "translate(" + projection([point_country.longitude - 4 , point_country.latitude])[0] +"," + projection([point_country.longitude - 4, point_country.latitude])[1] + ")" })
+                                .attr("width", 30)
+                                .attr("height", 30)
+                                // .attr("r", 100 / 2)
+                                .attr("class", "image-pop")
+                                // .style("fill", "#fff")
+                                .style("fill", "url(#img-pop-c" + idx_c + ")")
+                                .on("mouseover", function () {
+                                    d3.select(this).style("cursor", "pointer"); 
+                                    let pos = d3.select(this).node().getBoundingClientRect()
+                                    // console.log(pos.left)
+                                    const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+                                    const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+
+                                    vwPosLeftOffset = pos.left < vw/2 ? 125 : (-275)
+                                    vhPosTopOffset = pos.top < vh /2 ? 0 : (-175)
+
+                                    $( "<div></div>", {
+                                        "id": "div-img-pop"
+                                    }).appendTo( "#main-cont" );
+                                    $("#div-img-pop").css({
+                                        display: "flex",
+                                        "flex-direction": "column-reverse",
+                                        position: "absolute",   
+                                        top: pos.top + vhPosTopOffset,
+                                        left: pos.left + vwPosLeftOffset,
+                                        background: "white",
+                                        height: "250px",
+                                        width: "250px",
+                                        "border-radius": "15px",
+                                        background: "url("+point_country.description[0].cdn_url + ")",
+                                        "background-size" : "cover",
+                                        "background-position" : "center"
+
+                                    })
+
+                                    $( "<div></div>", {
+                                        "id": "div-img-pop-layer"
+                                    }).appendTo( "#div-img-pop" );
+
+                                    $( "<p></p>", {
+                                        "id": "div-img-pop-p"
+                                    }).appendTo( "#div-img-pop" );
+
+                                    $("#div-img-pop-p").text(point_country.city + ", " + point_country.country)
+                                })
+                                .on("mouseout", function (d, i) {
+                                    d3.select(this).style("cursor", "default"); 
+                                    $("#div-img-pop").css("display", "none")
+                                    $("#div-img-pop").empty()
+
+                                })
+                        }
+                    },
+                    error: function(xhr) {
+                        alert("Err city info load")
+                        console.log(xhr)
+                    }
+                    });
+            }
                 
 
             // set the dimensions and margins of the graph
@@ -351,6 +448,7 @@ d3.json(
             .data(data_ready)
             .enter()
             .append('path')
+            .attr("class", "donut")
             .attr('d', d3.arc()
             .innerRadius(7)         // This is the size of the donut hole
             .outerRadius(radius)
@@ -551,14 +649,16 @@ d3.json(
             // add an onlcick action to zoom into clicked country
             .on("click", function (d, i) {
                 d3.selectAll(".country").classed("country-on", false);
-                d3.select("#country" + d.properties.iso_a3).classed("country-on", true);
+                // d3.select("#country" + d.properties.iso_a3).classed("country-on", true);
                 boxZoom(path.bounds(d), path.centroid(d), 20);
             });
+
         // add the text to the label group showing country name
         countryLabels
             .append("text")
             .attr("class", "countryName")
             .style("text-anchor", "middle")
+            .style("font-weight", "600")
             .attr("dx", 0)
             .attr("dy", 0)
             .text(function (d) {

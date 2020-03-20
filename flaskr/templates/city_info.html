@@ -58,6 +58,7 @@
         </div>
     </div>
 </div>
+<<<<<<< Updated upstream
 
 <div style="margin-left: 50px;">
 
@@ -65,6 +66,15 @@
 </div>
 <div id="safety_gauge" style="width: 500px; height:400px; align: center;" ></div>
 <div id="summary" style="width: 500px; height:300px; align: center;" ></div>
+=======
+        
+<!-- <div style="margin-left: 50px;"> -->
+
+</div>
+</div>
+<div id="safety_gauge" style="width: 500px;height:300px; margin: 20px;" ></div>
+<div id="summary" style="width: 500px;height:300px;" ></div>
+>>>>>>> Stashed changes
 
 
 <!--<div style=" height: 400px; overflow: scroll;">-->
@@ -109,12 +119,15 @@
     // console.log(latest_year);
     var safety_index = data.crime[latest_year].safety_index;
     // console.log(safety_index);
+
+    var summary_list = [data.traffic["2019"].traffic_index, data.pollution["2019"].pollution_index, 
+data.cost["2019"].cost_living_index, data.cost["2019"].groceries_index, 
+data.cost["2019"].restaurant_price_index];
+
     var option = {
-        title: {
-        text: 'Safety Coefficient ' + latest_year
-        },
+        
         tooltip: {
-            formatter: '{a} <br/>{b} : {c}%'
+            formatter: '{a} : {c}%'
         },
         toolbox: {
             feature: {
@@ -122,20 +135,39 @@
         },
         series: [
             {
-                name: 'Coefficient',
+                name: latest_year,
                 type: 'gauge',
-                detail: {formatter: '{value}%', rich: {}},
+                detail: {formatter: '{value}%', fontSize: 20, offsetCenter: [0, '20%']},
+                pointer: {
+                                width:5
+                            },
+                title: {
+                    // text: 'Safety Coefficient ' + latest_year,
+                    textStyle: { // Test compat
+                                    fontWeight: 'bolder',
+                                    fontSize: 18,
+                                },
+                    // fontStyle: 'verdana',            
+                    offsetCenter: ['-125%', '-110%'],
+                },
+                splitLine: {           // 分隔线
+                                length :20,         // 属性length控制线长
+                                lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                                    color: 'auto'
+                                }
+                            },
                 axisLine: {            // 坐标轴线
                          lineStyle: {       // 属性lineStyle控制线条样式
+                            width: 12,
                              color: [[0.2, '#c23531'], [0.8, '#63869e'], [1, '#91c7ae']]
                                     }
                                 },
-                data: [{value: safety_index, name:'Factor of Safety'}]
+                data: [{value: safety_index, name: 'Safety Coefficient '}]
             }
         ]
     };
 
-    safetyChart.setOption(option);
+    safetyChart.setOption(option, true);
     window.onresize = safetyChart.resize;
 
     var summaryChart = echarts.init(document.getElementById('summary'));
@@ -143,12 +175,13 @@
         // Specifying configuration items and data for the chart
           var option = {
             title: {
-                text: 'City Statistics'
+                text: 'City Statistics',
+                left: 50
             },
             tooltip: {},
-            legend: {
-                data: ['Summary']
-            },
+            // legend: {
+            //     data: ['Summary']
+            // },
             radar: {
                 // shape: 'circle',
                 name: {
@@ -170,15 +203,18 @@
             series: [{
                 type: 'radar',
                 // areaStyle: {normal: {}},
+                
                 data: [
                     {
-                        value: [60.82, 96.02, 114.57, 115.81, 99.42],
-                        name: ''
+                        value: summary_list,
+                        name: 'Summary',
+                        
                     }
+                    
                 ]
             }]
         };
-        summaryChart.setOption(option);
+        summaryChart.setOption(option, true);
         window.onresize = summaryChart.resize;
 
 

@@ -1,7 +1,7 @@
 import os
 import sqlite3
 from flask import Flask
-from flask import request, render_template, redirect
+from flask import request, render_template
 from flask import jsonify
 import sys
 from wtforms import Form, SelectMultipleField
@@ -22,7 +22,7 @@ def dict_factory(cursor, row):
         d[col[0]] = row[idx]
     return d
 
-def query_db(query, num_ele = 20):
+def query_db(query, num_ele = 20, all_flag = False):
     connection = sqlite3.connect('instance/flaskr.sqlite')
     connection.row_factory = dict_factory
     cursor = connection.cursor()
@@ -32,12 +32,14 @@ def query_db(query, num_ele = 20):
     #     print(row)
     #     break
     # print(rows[0])
+    if all_flag:
+        return rows
     return rows[:num_ele]
 
 def get_city_info(city):
     query = "select *, photos_nus.id as photo_id from photos_nus inner join cost_view on photos_nus.city=cost_view.city where cost_view.city like '%{}%'" 
     query = query.format(city)
-    print(query, file=sys.stderr)
+    # print(query, file=sys.stderr)
     query_response = query_db(query, 1)
     return query_response
 
@@ -48,6 +50,7 @@ def create_json(photos_list):
     class_tag_overall = set()
     for photos in photos_list:
         a = dict()
+        # print(photos)
         a["city"] = photos['city']
         a["country"] = photos['country']
         a["latitude"] = photos['latitude']
@@ -59,8 +62,8 @@ def create_json(photos_list):
         url_list = photos['url'].split(',')
         cdn_url_list = photos['cdn_url'].split(',')
         indl_popularity_list = photos['indl_popularity'].split(',')
-        print(photos['url'])
-        print(url_list)
+        # print(photos['url'])
+        # print(url_list)
         class_tags_list = photos['class_tag'].split(',')
         for index in range(0,len(url_list)):
             description_dict = dict()
@@ -116,15 +119,34 @@ def create_json(photos_list):
     # print(formatted_list)
     return formatted_list
 
+def get_cities_of_country(pref, country):
+    pref = pref.split(",")
+    inner_query = "select * from photos_nus where country like '{}' and (".format(country)
+    inner_query = inner_query + " or ".join("class_tag like '%{}%'".format(p) for p in pref) + " )" 
+    query = "select * from ( select city, country, latitude, longitude, sum(popularity) as popularity,group_concat(url) as url, group_concat(cdn_url) as cdn_url, group_concat(class_tag) as class_tag, group_concat(popularity) as indl_popularity from (" + inner_query + " ) group by city, country ) as p inner join  [cost_view] c on p.city = c.city inner join [pollution_view] po on c.city = po.city inner join [crime_view] cr on cr.city = po.city inner join [traffic_view] t on t.city = cr.city where p.country = c.country and po.country = c.country and cr.country = po.country and t.country = cr.country" 
+    # print(query)
+    query_resp = query_db(query)
+    # print(query_resp)
+    return create_json(query_resp)
+
+def get_country_count():
+    query = "select count, country from [photo_count]"
+    country_list = query_db(query, all_flag = True)
+    # print(country_list[:10])
+    country_count = {x["country"]:x["count"] for x in country_list}
+    return country_count
+    
 
 def get_top_elements_from_db(pref):
     # query = "select * from photos where class_tag = ? order by popularity desc"
     # query = "select *, photos.id as photo_id from photos inner join costs_combined on photos.cost_id=costs_combined.id where class_tag = ? order by popularity desc"
+    pref = pref.split(",")
+    print(pref)
     total_pref = len(pref)
     ret_ele = []
     inner_query = "select * from photos_nus where class_tag like '%{}%'"
     inner_query = inner_query.format(pref[0])
-    print(inner_query)
+    # print(inner_query)
     if(total_pref == 2 ):
         inner_query = inner_query + " and class_tag like '%{}%'"
         inner_query = inner_query.format(pref[1])
@@ -142,15 +164,17 @@ def get_top_elements_from_db(pref):
                                                            "[traffic_view] t on t.city = cr.city where " \
                                                            "p.country = c.country and po.country = c.country and cr.country = po.country " \
                                                            "and t.country = cr.country order by p.popularity desc"
-    print(query)
+    # print(query)
     # print(tuple(pref))
     and_query_response = query_db(query, NUM_ELE)
     ret_ele.extend(and_query_response)
     ele_remaining = NUM_ELE - len(and_query_response)
     if(ele_remaining > 2 and total_pref > 1):
+        print("Ele remaining")
         query = "select * from (" \
                 "select city, country, latitude, longitude, sum(popularity) as popularity, group_concat(url) as " \
-                "url, group_concat(class_tag) as class_tag from (" + "select * from photos_nus where class_tag like '%?%'" + \
+                "url, group_concat(cdn_url) as cdn_url, group_concat(class_tag) as class_tag,  group_concat(popularity) as " \
+                    " indl_popularity from (" + "select * from photos_nus where class_tag like '%{}%'" + \
                 ")" + " group by city,country) as p inner join  [cost_view] c on p.city = c.city inner join [pollution_view] po on c.city = po.city " \
                       "inner join [crime_view] cr on cr.city = po.city inner join " \
                       "[traffic_view] t on t.city = cr.city where " \
@@ -199,19 +223,20 @@ def create_app(test_config=None):
     def user_pref():
         # print(request.args.get('pref'), file=sys.stderr)
         pref = request.args.get('pref')
-        if pref is None:
-            return redirect('/')
-        print(pref, file=sys.stderr)
+        # print(pref, file=sys.stderr)
         result = json.dumps(get_top_elements_from_db(pref))
-        print(result, file=sys.stderr)
-        return render_template('map.html', result=result, pref=pref)
+        country_count = get_country_count()
+        # print(country_count)
+        # print(result, file=sys.stderr)
+        return render_template('map.html', result=result, pref=pref, country_count=country_count)
 
     @app.route('/city_info', )
     def city_info():
         query = request.args.get('data')
         query = json.loads(query)
         # data = get_city_info(query)
-        print(json.dumps(query), file=sys.stderr)
+        # print(data[0], file=sys.stderr)
+        get_country_count()
         html = render_template('city_info.html', data=query, raw=json.dumps(query))
         return jsonify({'results':html})
 
@@ -222,6 +247,13 @@ def create_app(test_config=None):
         # query = json.loads(query)
         html = render_template('city_comparison.html', data=content)
         return jsonify({'results': html})
+        
+    @app.route('/country_info', )
+    def country_info():
+        pref = request.args.get('pref')
+        result = json.dumps(get_cities_of_country(pref, "United States"))
+        # print(result, file=sys.stderr)
+        return render_template('map.html', result=result, pref=pref)
 
     from . import db
     db.init_app(app)

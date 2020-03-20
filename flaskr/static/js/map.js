@@ -237,6 +237,55 @@ var heat_color = d3.scaleThreshold().domain([0, 1, 5, 10, 20, 30, 45, 75, 125, 3
 var country_c = JSON.parse($('#country_count').data().count.replace(/'/g, '"'));
 
 
+// var legend = svg.selectAll(".legend")
+// .append("g")
+//   .attr("class", "legend")
+// //   .attr("x", w - 65)
+// //   .attr("y", 25)
+//   .attr("height", 100)
+//   .attr("width", 100)
+//   .attr('transform', 'translate(-20,50)')
+
+
+  colour_data = [0, 1, 5, 10, 20, 30, 45, 75, 125, 300, 500]
+//   legend.selectAll('rect')
+//       .enter()
+//       .data(colour_data)
+//       .append("rect")
+// 	  .attr("width", 10)
+//       .attr("height", 10)
+//       .style("fill", function(d) { 
+//           console.log(d)
+//         var color = heat_color(d);
+//         return color;
+//       })
+
+
+svg.selectAll("mydots")
+ .data(colour_data)
+ .enter()
+ .append("circle")
+ .attr("cx", 100)
+ .attr("cy", function(d,i){ return 100 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
+ .attr("r", 7)
+ .style("fill", function(d){ return heat_color(d)})
+          
+  svg.selectAll("mylabels")
+  .data(colour_data)
+  .enter()
+  .append("text")
+  .attr("x", 120)
+  .attr("y", function(d,i){ return 100 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
+  .style("fill", function(d){ 
+   console.log(d);
+   return heat_color(d)})
+   .text(function(d){ return d})
+   .attr("text-anchor", "right")
+//    .style("alignment-baseline", "middle")
+          
+       
+      
+
 // country_c);
 // console.log(country_c);
 // get map data
@@ -252,6 +301,7 @@ d3.json(
             .attr("y", 0)
             .attr("width", w)
             .attr("height", h);
+              
 
         // draw a path for each feature/country
         countries = countriesGroup

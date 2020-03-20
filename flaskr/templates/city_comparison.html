@@ -1,0 +1,41 @@
+
+<div class="comp-container">
+    <div class="comp-country-sec">
+        {% for item in data %}
+        <div class="comp-country-item">
+            <div class="center-col">
+                <p class="comp-city-title">{{ item.city }}</p>
+                <p class="comp-country-title">{{item.country}}</p>
+            </div>
+            <div id="comp-photos-{{loop.index}}" class="comp-photos-container">
+                {% for photo in item.description %}
+                <div class="comp-photo" style="background-image: url({{photo.cdn_url}})"></div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="seperator">
+            {% if loop.index != 3 %}
+                <div></div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    $(() =>  {
+
+        let data = ({{data|safe}})
+        console.log(data)
+        for (idx in data) {
+            console.log(idx+1)
+            let images=$('#comp-photos-' + (Number(idx) + 1) +' div'),index=0
+                setInterval(looper,2000)
+                looper()
+                function looper(){
+                    images.eq(index).fadeIn(1500).delay(3500).fadeOut(2000)
+                    index=(index+1) % images.length
+                }
+        }
+    });
+</script>

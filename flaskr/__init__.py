@@ -215,6 +215,14 @@ def create_app(test_config=None):
         html = render_template('city_info.html', data=query, raw=json.dumps(query))
         return jsonify({'results':html})
 
+    @app.route('/city_compare', methods=['POST'])
+    def city_compare():
+        content = request.get_json(silent=True)
+        print(content, file=sys.stderr)
+        # query = json.loads(query)
+        html = render_template('city_comparison.html', data=content)
+        return jsonify({'results': html})
+
     from . import db
     db.init_app(app)
 

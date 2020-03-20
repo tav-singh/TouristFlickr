@@ -31,6 +31,44 @@ $("#close-city").click(() => {
 
 }) 
 
+var comparison_mode = false;
+var comparison_cities = []
+
+$("#btn-compare").click(() => {
+
+    if (!comparison_mode) {
+        comparison_mode = true
+        $(".overlay").css("width", "0")
+        cityOpened = false
+        svg.attr("width", "100%")
+        initiateZoom();
+        $("#image-gallery").empty()
+        $("#one-city-views").empty()
+        $("#comchoose-tags").empty()
+        $("#btn-compare").text("Cancel")
+        $("#btn-compare").css({background: "#f44336", color: "white"})
+        $("#compare-mode-text").text("Comparison Chooser")
+        console.log("comparison mode")
+        // $("#comparison-overlay").css("top", "10%")
+        comparison_cities = []
+        $("#comparison-choose-tooltip").css("top", "0")
+        
+    } else {
+        comparison_mode = false
+        console.log("normal mode")
+        $("#btn-compare").css({background: "white", color: "#000000"})
+        $("#btn-compare").text("Compare Cities")
+        $("#compare-mode-text").text("Normal Mode")
+        $("#comparison-overlay").empty()
+        $("#comparison-overlay").css({
+            "top": "100%",
+            "height": "0"
+        })
+        $("#comparison-choose-tooltip").css("top", "-50%")
+        $("tagContainer").css("display", "block")
+    }
+})
+
 
 var tags = $('#result').data().pref.split(",")
 tagColors = {
@@ -319,7 +357,7 @@ d3.json(
                 .on("mouseover", function () {
                     d3.select(this).style("cursor", "pointer"); 
                     let pos = d3.select(this).node().getBoundingClientRect()
-                    console.log(pos.left)
+                    // console.log(pos.left)
                     const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
                     const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
 
@@ -372,25 +410,66 @@ d3.json(
             //end of for point gen.
         }
 
-        function getCityInfo(val) {
-            console.log("sending...")
-            console.log(val)
-            // console.log(val)
-            $.ajax({
-            url: "/city_info",
-            type: "get",
-            data: {data: JSON.stringify(val)},
-            success: function(response) {
-                console.log("success")
-                console.log(response)
-                $("#one-city-views").html(response.results)
-                openCityInfo()
-            },
-            error: function(xhr) {
-                alert("Err city info load")
-                console.log(xhr)
+        function addToComparison(val) {
+
+            comparison_cities.push(val)
+            console.log(comparison_cities)
+
+            $("#comchoose-tags").append(
+                "<p>" + val.city + "</p>"
+            )
+
+            if (comparison_cities.length === 3) {
+                console.log("getting compare view")
+                $.ajax({
+                    url: "/city_compare",
+                    type: "post",
+                    data: JSON.stringify(comparison_cities),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(response) {
+                        console.log("success")
+                        $("#comparison-overlay").html(response.results)
+                        $("#comparison-choose-tooltip").css("top", "-50%")
+                        $("#comparison-overlay").css({
+                            "height": "90%",
+                            "top": "10%"
+                        })
+                        $("#compare-mode-text").text("Comparison Mode")
+                        $("#btn-compare").text("close")
+                        $(".tagContainer").css("display", "none")
+                    },
+                    error: function(xhr) {
+                        alert("Error loading city comparison")
+                        console.log(xhr)
+                    }
+                    });
             }
-            });
+        }
+
+        function getCityInfo(val) {
+
+            if (comparison_mode) {
+                addToComparison(val)
+            } else {
+                console.log(val)
+                // console.log(val)
+                $.ajax({
+                url: "/city_info",
+                type: "get",
+                data: {data: JSON.stringify(val)},
+                success: function(response) {
+                    console.log("success")
+                    console.log(response)
+                    $("#one-city-views").html(response.results)
+                    openCityInfo()
+                },
+                error: function(xhr) {
+                    alert("Err city info load")
+                    console.log(xhr)
+                }
+                });
+            }
         }
 
         function openCityInfo() {

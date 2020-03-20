@@ -1,0 +1,15 @@
+.comp-container {
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+.comp-country-sec {
+    display: flex;
+    flex-direction: row;
+}
+
+.comp-country-item {
+    width: 33%;
+    border-right: #000000 2px;
+}

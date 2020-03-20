@@ -14,7 +14,6 @@
 
     <div id="main-cont" style="position: relative">
         
-        
         <div class="tagContainer">
             <div id="t-city" class="turq tags tagDisabled"><p>City</p></div>
             <div id="t-nature" class="eme tags tagDisabled"><p>Nature</p></div>
@@ -25,8 +24,25 @@
             <div id="t-go" class="tags tag-go"><p>Go &rarr;</p></div>
             <!-- <div id="print" style="color: white;"></div> //test if result is sent to html-->
         </div>
+        
+
+        <div id="compare-mode">
+            <p id="compare-mode-text" style="margin: 0">Normal mode</p>
+        </div>
+        <div id="compare-container">
+            <div id="btn-compare" ><p>Compare cities</p></div>
+        </div>
+
         <div id="map-holder"></div>
         <div id="one-city-views" class="overlay" style="display: block;">
+        </div>
+
+        <div id="comparison-choose-tooltip">
+            <div class="comchoose-title"><p style="margin: 0;">Choose 3 citites to compare</p></div>
+            <div id="comchoose-tags">
+            </div>
+        </div>
+        <div id="comparison-overlay">
         </div>
        
 
@@ -35,19 +51,27 @@
 <!--    {% for ele in result %}-->
 <!--    <li>{{ ele }}</li>-->
 <!--    {% endfor %}-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" charset="utf-8"></script>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
 
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js" charset="utf-8"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" charset="utf-8"></script>
-   <script src="https://d3js.org/d3.v4.js"></script>
-   <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
-   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
-   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.js"></script>
-   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
-   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
-   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
-   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
-
-    <script src="../static/js/map.js"></script>
+<script src="../static/js/map.js"></script>
 </body>
 
 </html>

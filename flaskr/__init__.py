@@ -247,13 +247,15 @@ def create_app(test_config=None):
         # query = json.loads(query)
         html = render_template('city_comparison.html', data=content)
         return jsonify({'results': html})
-        
-    @app.route('/country_info', )
+
+    @app.route('/country_info')
     def country_info():
         pref = request.args.get('pref')
-        result = json.dumps(get_cities_of_country(pref, "United States"))
-        # print(result, file=sys.stderr)
-        return render_template('map.html', result=result, pref=pref)
+        country = request.args.get('country')
+        print(country, file=sys.stderr)
+        print(pref, file=sys.stderr)
+        result = json.dumps(get_cities_of_country(pref, country))
+        return jsonify({"result":result})
 
     from . import db
     db.init_app(app)

@@ -55,7 +55,7 @@ svg rect {
 #compare-container {
     position: absolute;
     top: 35px;
-    left: 15px; 
+    left: 40px; 
 }
 #compare-container>div{
     padding: 5px;
@@ -73,7 +73,7 @@ svg rect {
 }
 
 #compare-mode {
-    left: 15px;
+    left: 50px;
     top: 0;
     position: absolute;
     padding: 1px 5px;
@@ -164,7 +164,7 @@ svg rect {
     height: 100vh;
     z-index: 10;
     /* right: 0; */
-    background-color: #f3f3f3;
+    /* background-color: #f5f5f5d5; */
     /*background-color: rgba(0, 0, 0, 0.1);;*/
 }
 
@@ -413,7 +413,7 @@ flex-direction: column; */
 }
 
 .loading-overlay {
-    background: #f5f5f5;
+    /* background: #f5f5f5; */
     height: 100%;
     width: 100%;
     position: absolute;
@@ -472,12 +472,12 @@ flex-direction: column; */
     left: 0;
     border-radius: 15px 15px 0 0;
     transition: .3s ease;
-    background-color: #f5f5f5d5;
+    background-color: #f5f5f5ea;
     color: #484848;
 }
 
 #comparison-choose-tooltip {
-    background-color: #546e7a;
+    background-color: #546e7aad;
     color: white;
     position: absolute;
     left: 50%;
@@ -541,7 +541,7 @@ flex-direction: column; */
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
 
 }
 
@@ -574,7 +574,7 @@ flex-direction: column; */
 .comp-photos-container {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 250px;
     margin-top: 20px;
 }
 
@@ -589,6 +589,57 @@ flex-direction: column; */
     transform: translateX(-50%);
     border-radius: 15px;
 
+}
+
+.comp-container {
+    position: relative;
+    overflow: hidden !important;
+}
+
+#index-tooltip {
+    position: absolute;
+    bottom: 0;
+    right: 40px;
+    z-index: 100;
+    background-color: #ffffffa2;
+    color: #484848;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+    transition: .2s ease;
+    height: 35px;
+}
+.index-show > p{
+    margin:0;
+    padding: 5px;
+}
+.index-show {
+    height: 35px;
+    transition: .1s ease;
+}
+
+.index-show:hover .index-show{
+    height: 45px;
+}
+
+#index-hidden {
+    height: 0;
+    transition: .1s ease;
+    display: none;
+}
+
+#gauge-comparison {
+    width: 750px;
+    height:500px;
+}
+
+#index-hidden>p{
+    margin: 0;
+    padding: 4px 8px;
+}
+
+.comparison-charts {
+    width: 750px;
+    height:500px;
 }
 /*
 #photos {

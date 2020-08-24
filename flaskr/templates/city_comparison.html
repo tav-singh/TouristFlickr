@@ -20,14 +20,29 @@
         </div>
         {% endfor %}
     </div>
+    <br/>
+    <div class="center-col">
+        <p style="font-size: 1.2em; font-weight: 600;">Comparison of Statistics</p>
+        <div class="comp-country-sec">
+            <div class="comp-country-item center-col" style="margin-left:20px">
+                <div id="gauge-comparison" class="comparison-charts" ></div>
+            </div>
+            <div class="comp-country-item center-col">
+                <div id="summary-comparison" class="comparison-charts"></div>
+            </div>
+            <div class="comp-country-item center-col" style="justify-content: flex-start;">
+                <div id="pollution-comparison" style="width:600px; height: 400px;"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
     $(() =>  {
 
-        let data = ({{data|safe}})
-        console.log(data)
-        for (idx in data) {
+        let comparison_data = ({{data|safe}})
+        console.log(comparison_data)
+        for (idx in comparison_data) {
             console.log(idx+1)
             let images=$('#comp-photos-' + (Number(idx) + 1) +' div'),index=0
                 setInterval(looper,2000)
@@ -39,3 +54,337 @@
         }
     });
 </script>
+
+<script>
+    let comparison_data = ({{data|safe}})
+    // Based on dom，initial echarts
+var safetyChart = echarts.init(document.getElementById('gauge-comparison'));
+// This chart is for comparing three cities' safety
+// Specifying configuration items and data for the chart
+    var option = {
+        title: {
+            text: 'Safety Coefficient'
+        },
+        series : [
+            {
+                name: '左上转速',
+                type: 'gauge',
+                center: ['41.6%', '33%'],    // 默认全局居中
+                radius: '50%',
+                clockwise:true, //仪表盘刻度顺时针增长
+                min:0,
+                max:100,
+                startAngle:240,
+                endAngle:60,
+                splitNumber:10,
+                axisLine: {            // 坐标轴线
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        width: 10,
+                        color: [[0.2, '#c23531'], [0.8, '#63869e'], [1, '#91c7ae']]
+                    }
+                },
+                axisTick: {            // 坐标轴小标记
+                    length:12,        // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        color: 'auto'
+                    }
+                },
+                splitLine: {           // 分隔线
+                    length:20,         // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                        color: 'auto'
+                    }
+                },
+                pointer: {
+                    width:3
+                },
+                title: {
+                    offsetCenter: ['0', '-20%'],       // x, y，单位px
+                    fontSize: 14,
+                    color:'gray'
+                },
+                detail: {
+                    offsetCenter: ['0', '20%'],       // x, y，单位px
+                    textStyle: {       // 其余属性默认使用全局文本样式
+                        fontWeight: 'bolder',
+                        fontSize: 18
+                    }
+                },
+                data:[{value: comparison_data[0].crime["2018"].safety_index, name: comparison_data[0].city}]
+            },
+            {
+                name: '右上转速',
+                type: 'gauge',
+                center: ['58.4%', '33%'],    // 默认全局居中
+                radius: '50%',
+                min:100,
+                max:0,
+                startAngle:120,
+                endAngle:-60,
+                splitNumber:10,
+                axisLine: {            // 坐标轴线
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        width: 8
+                    }
+                },
+                axisTick: {            // 坐标轴小标记
+                    length:12,        // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        color: 'auto'
+                    }
+                },
+                splitLine: {           // 分隔线
+                    length:20,         // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                        color: 'auto'
+                    }
+                },
+                pointer: {
+                    width:3
+                },
+                title: {
+                    offsetCenter: ['0', '-20%'],       // x, y，单位px
+                    fontSize: 14,
+                    color:'gray'
+                },
+                detail: {
+                    offsetCenter: ['0', '20%'],       // x, y，单位px
+                    textStyle: {       // 其余属性默认使用全局文本样式
+                        fontWeight: 'bolder',
+                        fontSize: 18
+                    }
+                },
+                data:[{value: comparison_data[1].crime["2018"].safety_index, name: comparison_data[1].city}]
+            },
+            {
+                name: '下转速',
+                type: 'gauge',
+                center: ['50%', '55%'],    // 默认全局居中
+                radius: '50%',
+                min:100,
+                max:0,
+                startAngle:360,
+                endAngle:180,
+                splitNumber:10,
+                axisLine: {            // 坐标轴线
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        width: 8
+                    }
+                },
+                axisTick: {            // 坐标轴小标记
+                    length:12,        // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        color: 'auto'
+                    }
+                },
+                splitLine: {           // 分隔线
+                    length:20,         // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                        color: 'auto'
+                    }
+                },
+                pointer: {
+                    width:3
+                },
+                title: {
+                    offsetCenter: ['0', '20%'],       // x, y，单位px
+                    fontSize: 14,
+                    color:'gray'
+                },
+                detail: {
+                    offsetCenter: ['0', '-10%'],       // x, y，单位px
+                    textStyle: {       // 其余属性默认使用全局文本样式
+                        fontWeight: 'bolder',
+                        fontSize: 18
+                    }
+                },
+                data:[{value: comparison_data[2].crime["2018"].safety_index, name: comparison_data[2].city}]
+            },
+
+        ]
+    };
+
+safetyChart.setOption(option);
+</script>
+
+<script>
+    let s_data = ({{data|safe}})
+    // Based on dom，initial echarts
+var summaryChart = echarts.init(document.getElementById('summary-comparison'));
+//show the safety coefficient for the chosen city
+// Specifying configuration items and data for the chart
+var option = {
+    title: {
+        text: 'Summary'
+    },
+    tooltip: {},
+    legend: {
+        data: [s_data[0].city, s_data[1].city , s_data[2].city]
+    },
+    radar: {
+        // shape: 'circle',
+        name: {
+            textStyle: {
+                color: '#fff',
+                backgroundColor: '#999',
+                borderRadius: 3,
+                padding: [3, 5]
+            }
+        },
+        indicator: [
+            { name: 'Restaurant Price Index', max:150},
+            { name: 'Groceries Index', max:150},
+            { name: 'Cost of Living Index', max:150},
+            { name: 'Traffic Index', max:350},
+            { name: 'Time Index', max:72},
+
+        ]
+    },
+    series: [{
+        type: 'radar',
+        // areaStyle: {normal: {}},
+        data: [
+            {
+                value: [
+                    s_data[0].cost["2018"].restaurant_price_index, 
+                    s_data[0].cost["2018"].groceries_index, 
+                    s_data[0].cost["2018"].cost_living_index, 
+                    s_data[0].traffic["2018"].traffic_index, 
+                    s_data[0].traffic["2018"].time_index, 
+                    ],//traffic_index from 2015 to 2019!!!
+                name: s_data[0].city
+            },
+            {
+                value: [
+                    s_data[1].cost["2018"].restaurant_price_index, 
+                    s_data[1].cost["2018"].groceries_index, 
+                    s_data[1].cost["2018"].cost_living_index, 
+                    s_data[1].traffic["2018"].traffic_index, 
+                    s_data[1].traffic["2018"].time_index, 
+                    ],//traffic_index from 2015 to 2019!!!
+                name: s_data[1].city
+            },
+            {
+                value: [
+                    s_data[2].cost["2018"].restaurant_price_index, 
+                    s_data[2].cost["2018"].groceries_index, 
+                    s_data[2].cost["2018"].cost_living_index, 
+                    s_data[2].traffic["2018"].traffic_index, 
+                    s_data[2].traffic["2018"].time_index, 
+                    ],//traffic_index from 2015 to 2019!!!
+                name: s_data[2].city
+            }
+        ]
+    }]
+};
+summaryChart.setOption(option);
+</script>
+
+<script type="text/javascript">
+    let p_data = ({{data|safe}})
+    // Based on dom，initial echarts
+    var pollutionChart = echarts.init(document.getElementById('pollution-comparison'));
+    // This chart is for comparing three cities' different cost(cost_living, Groceries, Restaurant_prize)
+    // Specifying configuration items and data for the chart
+    var option = {
+        title: {
+            left: 'left',
+            text: 'Pollution',
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {            
+                type: 'shadow'        // default is line, can choose from：'line' | 'shadow'
+            }
+        },
+        legend: {
+            data: ['2015', '2016', '2017', '2018', '2019']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'value'
+        },
+        yAxis: {
+            type: 'category',
+            data: [p_data[2].city, p_data[1].city, p_data[0].city]
+        },
+        series: [
+            {
+                name: '2015',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    show: true,
+                    position: 'insideRight'
+                },
+                data: [
+                    p_data[2].pollution["2015"].pollution_index, 
+                    p_data[1].pollution["2015"].pollution_index, 
+                    p_data[0].pollution["2015"].pollution_index, 
+                ]//pollution data in 2015
+            },
+            {
+                name: '2016',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    show: true,
+                    position: 'insideRight'
+                },
+                data: [
+                    p_data[2].pollution["2016"].pollution_index, 
+                    p_data[1].pollution["2016"].pollution_index, 
+                    p_data[0].pollution["2016"].pollution_index, 
+                ]
+            },
+            {
+                name: '2017',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    show: true,
+                    position: 'insideRight'
+                },
+                data: [
+                    p_data[2].pollution["2017"].pollution_index, 
+                    p_data[1].pollution["2017"].pollution_index, 
+                    p_data[0].pollution["2017"].pollution_index, 
+                ]
+            },
+            {
+                name: '2018',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    show: true,
+                    position: 'insideRight'
+                },
+                data: [
+                    p_data[2].pollution["2018"].pollution_index, 
+                    p_data[1].pollution["2018"].pollution_index, 
+                    p_data[0].pollution["2018"].pollution_index, 
+                ]
+            },
+            {
+                name: '2019',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    show: true,
+                    position: 'insideRight'
+                },
+                data: [
+                    p_data[2].pollution["2019"].pollution_index, 
+                    p_data[1].pollution["2019"].pollution_index, 
+                    p_data[0].pollution["2019"].pollution_index, 
+                ]
+            }
+        ]
+    };              
+    pollutionChart.setOption(option);
+  </script>
